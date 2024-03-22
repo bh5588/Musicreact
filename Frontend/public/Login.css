@@ -81,6 +81,7 @@ div.Login_From_Create{
   margin: auto;
   transition: all 0.3s ease-in-out;
 }
+
 @media screen and (max-width:1485px) {
   div.Login_From_Create{
   background-color: #fff;

@@ -5,7 +5,8 @@
 }
  @import url('https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&family=Kdam+Thmor+Pro&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap'); /*font-family: "Hind Madurai", sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');/* font-family: "Poppins", sans-serif;*/
-
+@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Hind+Madurai:wght@300;400;500;600;700&family=IM+Fell+Double+Pica+SC&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Kdam+Thmor+Pro&family=Mitr:wght@200;300;400;500;600;700&family=New+Tegomin&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&family=Yantramanav:wght@100;300;400;500;700;900&display=swap'); /*  font-family: "New Tegomin", serif; */
+@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Hind+Madurai:wght@300;400;500;600;700&family=IM+Fell+Double+Pica+SC&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Katibeh&family=Kdam+Thmor+Pro&family=Mitr:wght@200;300;400;500;600;700&family=New+Tegomin&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&family=Yantramanav:wght@100;300;400;500;700;900&display=swap'); /*  font-family: "Katibeh", serif; */
 .dark-side{
   --fgj:#1e1e1e;
     --fff:#000;
@@ -24,7 +25,7 @@ body{
    --box:rgb(0 0 0 / 0.2);
    --bule:#ccc;
    --373433:#373433;
-   --sun:url('./Svg/Sun\ copy.svg');
+   --sun:url('./Svg/Sun.svg');
    
 }
 body{
@@ -576,7 +577,123 @@ button.BTN_Upload::after{
     }
   }
 
+  div.Head_Profile{
+    margin-right: 30px;
+  }
+  div.Head_Profile{
+    background-color: var(--fff);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 8px #ccc;
+    position: relative;
+    cursor: pointer;
+  }
+  h1.User_Name_P {
+    font-size: 0;
+    cursor: pointer;
+  }
   
+  h1.User_Name_P:first-letter {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "New Tegomin", serif;
+    text-transform: uppercase;
+    color: var(--000);
+  }
+  
+  div.Profle_Image_Content{
+    position: absolute;
+    width: 250px;
+    height: 140px;
+    background-color: var(--fff);
+    box-shadow: 0px 0px 8px var(--000);
+    margin-left: -175px;
+    margin-top: 16.5px;
+    border-radius: 10px;
+    padding: 10px 15px;
+    animation: AnSlide 1s  ease forwards;
+  }
+  @keyframes AnSlide {
+    0%{
+      height: 0px;
+    }
+    100%{
+       height: 140px;
+    }
+  }
+
+  div.Profle_Image_Content::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 52%;
+  top: -30%;
+  margin-left: 55px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: transparent transparent var(--000) transparent;
+  z-index: -1;
+  }
+  p.User_Name_D{
+    font-family: "Katibeh", serif;
+    font-size: 25px;
+    color: var(--000);
+    font-weight: 600;
+  }
+h3.Dark_Btn_color{
+  color: var(--000)
+}
+  div.Profile_Img_Det{
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  div.Dark_mode{
+    display: flex;
+  }
+  div.Dark_Mode_Switch_Name{
+    margin-top: 3px;
+  }
+  div.Dark_Mode_Switch_S-m{
+    margin-left: 10px;
+  }
+  div.User_Name_Id:hover,
+  div.Dark_mode:hover{
+    padding-left: 10px;
+    transition: 0.3s ease-in-out;
+  }
+  button.Logout_Btn{
+    color: var(--000);
+    background-color: transparent;    
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: -105px;
+  }
+  button.Logout_Btn:hover{
+    padding-left: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  @media screen and (max-width:940px) {
+    div.Head_Card{
+      display: none;
+    }
+  }
+  div.Log-OuT_DE{
+    margin-top: 12px;
+    padding-bottom: 10px;
+  }
+  .LO_BN{
+    font-size: 21px !important;
+  }
   
 
 

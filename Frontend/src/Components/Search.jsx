@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import Spinner from '../Spinnerloader/Spinner'
 
 const Search = () => {
   const { search } = useLocation();
@@ -26,6 +27,8 @@ const Search = () => {
       <form   >
       <input type="Search" name="search" pattern=".*\S.*" required  autoComplete="off" Value={query}  onChange={handleInputChange} />
       </form>
+
+      <Spinner/>
     </div>
   );
 };

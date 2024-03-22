@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-//import { v4 as uuidv4 } from 'uuid';
 
 const Signup = () => {
   const history = useHistory();
@@ -21,29 +20,13 @@ const Signup = () => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const OTPRandomNumber = () => {
-    return Math.floor(100000 + Math.random() * 900000); 
-  };
-
-  const [erroruserid, setErrorMessage] = useState('');
   const handleSignSubmit = (event) => {
-    const specialCharRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
-
-    // Check if userid contains at least one special character
-    if (!specialCharRegex.test(values.userid)) {
-      event.preventDefault();
-      setErrorMessage('Userid must contain at least one special character and One number');
-      return;
-    }
-
-     event.preventDefault();
-    const randomKey = OTPRandomNumber();
+    event.preventDefault();
     axios.post('/Signup', {
       name: values.name,
       userid: values.userid,
       email: values.email,
-      password: values.password,
-      randomKey: randomKey
+      password: values.password
     })
     .then(res => {
      // console.log();
@@ -57,14 +40,7 @@ const Signup = () => {
       // Redirect to login page
       history.push('/Login');
     })
-    .catch(err => {
-      if (err.response && err.response.data && err.response.data.error === 'Email already exists') {
-        // Show error message for existing email
-        setErrorMessage('Email or Userid already exists');
-      } else {
-        console.log(err);
-      }
-    });
+    .catch(err => console.log(err));
   };
 
   return (
@@ -79,11 +55,9 @@ const Signup = () => {
             <Link className="Music_Name-Ex" to="/Home">Music Explore</Link>
           </div>
         </div>
-       
         <div className='Login_From'>
           <div className='Login_From_Create'>
-          {erroruserid && <div style={{ color: 'red', fontSize:'18px', fontWeight:'600' }}>{erroruserid}</div>}
-            <form className='Login_Page' id='loginForm' onSubmit={handleSignSubmit} method='post'>
+            <form className='Login_Page' id='loginForm' onSubmit={handleSignSubmit}>
               <h1 className='Name_Sign_e3'>Sign up to start <span className='Music_Name'><br/>listening</span></h1>
               <div className='Name-User_Field'>
                 <div className="input-field">
@@ -95,7 +69,6 @@ const Signup = () => {
                 <div className="input-field">
                   <input type="text" required name='userid' onChange={handleSign} value={values.userid}/>
                   <label className='Enter_Email'>User Id</label>
-                  
                 </div>
               </div>
               <div className='Email-User_Field'>
@@ -107,7 +80,7 @@ const Signup = () => {
               <div className='Cn_Passwords'>
                 <div className='Password_Field'>
                   <div className="input-field">
-                    <input id="Showpassword" type={passwordType} required name='password' minLength={8} onChange={handleSign} value={values.password}/>
+                    <input id="Showpassword" type={passwordType} required name='password' onChange={handleSign} value={values.password}/>
                     <label className='Enter_Email'>Password</label>
                   </div>
                 </div>
@@ -122,7 +95,7 @@ const Signup = () => {
                 </div>
               </div>
               <div className='Submit_Button_Sign'>
-                <input type='submit' value={'Sign Up'}/>
+                <input type='submit' value={'Submit'}/>
               </div>
             </form>
             <div className='Hr_Line'>
