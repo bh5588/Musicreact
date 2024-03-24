@@ -36,3 +36,50 @@ And we need a name like --- *"proxy" *-----  and give the  --- * url *--- that r
 in the --- ** PACKAGE.JSON and  PACKAGE.LOCK.JSON ** --- we must need to add it in that.
 
 after in AXOIS. POST ( --- * here we jsut need to put only the link of the page that we are created * --- )
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+here you need remember one thing .
+when you are giving the values in the post man you should give correctly
+=---------------------------  SIGNUP  in Postman -----------------------------------
+like this --
+{
+    "name": "John Doe",
+    "userid": "john123",
+    "email": "john@example.com",
+    "password": "password123",
+    "randomKey":"852147",
+    "tokenkey":"dRWhnqvp1W1JxCUP"
+}
+
+for this 
+and here based on the things you need to change the values 
+
+---------------------------- LOGIN ----------------------------------
+
+this the values in the post man 
+
+1.
+{
+   "login":"shijesh!2",
+  "password":"shijeah"
+}  
+
+   --------or-------
+2.
+{
+   "login":"Shijesh@gmail.com",
+  "password":"shijeah"
+   
+}
+
+here  you can both  login with email or  username ,
+both will work 
+
+--------------------------------------------------------------------------------------------------
+
+
+
+
+

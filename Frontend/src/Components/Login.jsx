@@ -18,7 +18,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  
   const handleLoginsub = (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -27,17 +27,19 @@ const Login = () => {
       password: password
     })
       .then(res => {
-        setTimeout(() =>{
+        setTimeout(() => {
           setIsLoading(false);
           history.push('/About');
         }, 2000);
-       
+  
       })
       .catch(err => {
         setError(err.response.data.error);
-        set.IsLoading(false)
+        setIsLoading(false); // Corrected typo here
       });
   };
+  
+
 
   const handleChange = (event) => {
     if (event.target.name === 'login') {

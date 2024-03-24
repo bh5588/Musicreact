@@ -12,7 +12,8 @@ app.use(bodyParser.json());
 
 // Session configuration
 app.use(session({
-  secret: 'your_secret_key',
+ // secret: 'your_secret_key',
+ secret: 'Server_Things',
   resave: false,
   saveUninitialized: true
 }));
@@ -37,69 +38,105 @@ db.connect((err) => {
 
 // Signup Endpoint
 app.post('/Signup', (req, res) => {
-  const { name, userid, email, password, randomKey } = req.body;
-  const checkEmailSql = 'SELECT * FROM signup WHERE email = ?';
-  db.query(checkEmailSql, [email], (err, result) => {
+  const { name, userid, email, password, randomKey, tokenkey } = req.body;
+
+  // Check if userid already exists
+  const checkUseridSql = 'SELECT * FROM signup WHERE userid = ?';
+  db.query(checkUseridSql, [userid], (err, userResult) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
-      res.status(500).json({ error: 'An error occurred while signing up' });
-      return;
+      return res.status(500).json({ error: 'An error occurred while checking userid' });
     }
 
-    if (result.length > 0) {
-      // Email already exists in the database
-      res.status(400).json({ error: 'Email already exists' });
-      return;
+    // If userid already exists, return error
+    if (userResult.length > 0) {
+      return res.status(400).json({ error: 'User ID already exists' });
     }
 
-    // Email doesn't exist, proceed with signup
-    const sql = 'INSERT INTO signup (name, userid, email, password, randomKey) VALUES (?, ?, ?, ?, ?)';
-    db.query(sql, [name, userid, email, password, randomKey], (err, result) => {
+    // If userid doesn't exist, proceed to check email
+    const checkEmailSql = 'SELECT * FROM signup WHERE email = ?';
+    db.query(checkEmailSql, [email], (err, emailResult) => {
       if (err) {
         console.error('Error executing MySQL query:', err);
-        res.status(500).json({ error: 'An error occurred while signing up' });
-        return;
+        return res.status(500).json({ error: 'An error occurred while checking email' });
       }
-      console.log('User signed up successfully');
-      res.status(200).json({ message: 'User signed up successfully' });
+
+      // If email already exists, return error
+      if (emailResult.length > 0) {
+        return res.status(400).json({ error: 'Email already exists' });
+      }
+
+      // If neither userid nor email exists, proceed with signup
+      const sql = 'INSERT INTO signup (name, userid, email, password, randomKey, tokenkey) VALUES (?, ?, ?, ?, ?, ?)';
+      db.query(sql, [name, userid, email, password, randomKey, tokenkey], (err, result) => {
+        if (err) {
+          console.error('Error executing MySQL query:', err);
+          return res.status(500).json({ error: 'An error occurred while signing up' });
+        }
+        console.log('User signed up successfully');
+        const newUser = {
+          name,
+          userid,
+          email,
+          password,
+          randomKey,
+          tokenkey
+        };
+        console.log('User signed up successfully:', newUser);
+        return res.status(200).json({ message: 'User signed up successfully' });
+      });
     });
   });
 });
 
-// Login Endpoint
+
 app.post('/login', (req, res) => {
   const { login, password } = req.body;
-  const sql = 'SELECT * FROM signup WHERE (email = ? OR userid = ?) AND password = ?';
+  const sql = 'SELECT * FROM signup WHERE (userid = ? OR email = ?) AND password = ?';
   db.query(sql, [login, login, password], (err, result) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
-      res.status(500).json({ error: 'An error occurred while logging in' });
-      return;
+      return res.status(500).json({ error: 'An error occurred while logging in' });
     }
-    if (result.length > 0) {
-      console.log('User logged in successfully');
-      
 
-      // Set session data
-      req.session.isLoggedIn = true ;
-      req.session.user = result[0]; // Storing user details in session
-
-      res.status(200).json({ message: 'User logged in successfully', isLoggedIn: true, user: req.session.user });
-    } else {
-      res.status(401).json({ error: 'Email or userid or password wrong' });
+    if (result.length === 0) {
+       console.log(err);
+       console.log(result);
+       console.log(sql);
+      // No user found with the provided userid or email
+      return res.status(401).json({ error: 'Userid or email wrong' });
     }
+
+    // User found, now check password
+    const user = result[0];
+    if (user.password !== password) {
+      // Incorrect password
+      return res.status(401).json({ error: 'Incorrect password' });
+    }
+
+    // Password correct, set session data
+    req.session.isLoggedIn = true;
+    req.session.user = user;
+
+    // Login successful
+    console.log('SQL Query:', sql);
+    console.log('Values:', [login, password]);
+    console.log('User logged in successfully');
+    return res.status(200).json({ message: 'User logged in successfully', isLoggedIn: true, user });
   });
 });
+
+
 
 // Navbar Endpoint
 app.get('/navbar', (req, res) => {
   // Check if user is logged in
   if (req.session.isLoggedIn) {
     // User is logged in, send relevant data from session
-    res.json({ isLoggedIn: true, user: req.session.user });
+    return res.json({ isLoggedIn: true, user: req.session.user });
   } else {
     // User is not logged in
-    res.json({ isLoggedIn: false });
+    return res.json({ isLoggedIn: false });
   }
 });
 
@@ -109,14 +146,14 @@ app.post('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.error('Error destroying session:', err);
-      res.status(500).json({ error: 'An error occurred during logout' });
-      return;
+      return res.status(500).json({ error: 'An error occurred during logout' });
     }
     // Session destroyed successfully
     console.log('User logged out successfully');
-    res.status(200).json({ success: true });
+    return res.status(200).json({Logout:"Successfully", success: true });
   });
 });
+
 
 // Server Setup
 app.get('/', (req, res) => {

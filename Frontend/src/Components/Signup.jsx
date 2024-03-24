@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-//import { v4 as uuidv4 } from 'uuid';
+
 
 const Signup = () => {
   const history = useHistory();
@@ -32,9 +32,22 @@ const Signup = () => {
     // Check if userid contains at least one special character
     if (!specialCharRegex.test(values.userid)) {
       event.preventDefault();
-      setErrorMessage('Userid must contain at least one special character and One number');
+      setErrorMessage('Userid must contain at least one special character and One number and also no spaces between characters');
       return;
     }
+    function generateRandomString(length) {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let tokenkey = '';
+  
+      for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          tokenkey += characters.charAt(randomIndex);
+      }
+  
+      return tokenkey;
+  }
+  
+  const tokenkey = generateRandomString(16);
 
      event.preventDefault();
     const randomKey = OTPRandomNumber();
@@ -43,29 +56,32 @@ const Signup = () => {
       userid: values.userid,
       email: values.email,
       password: values.password,
-      randomKey: randomKey
+      randomKey: randomKey,
+      tokenkey:tokenkey
     })
     .then(res => {
      // console.log();
       // Clear the form data upon successful signup
-      setValues({
-        name: '',
-        userid: '',
-        email: '',
-        password: ''
-      });
+      // setValues({
+      //   name: '',
+      //   userid: '',
+      //   email: '',
+      //   password: ''
+      // });
       // Redirect to login page
       history.push('/Login');
     })
     .catch(err => {
-      if (err.response && err.response.data && err.response.data.error === 'Email already exists') {
-        // Show error message for existing email
-        setErrorMessage('Email or Userid already exists');
+      if (err.response && err.response.data && (err.response.data.error === 'Email already exists' || err.response.data.error === 'User ID already exists')) {
+        // Show error message for existing email or userid
+        setErrorMessage(err.response.data.error);
       } else {
         console.log(err);
       }
     });
+    
   };
+  
 
   return (
     <div className='Login_Page_Full'>

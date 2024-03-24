@@ -610,7 +610,7 @@ button.BTN_Upload::after{
   div.Profle_Image_Content{
     position: absolute;
     width: 250px;
-    height: 140px;
+    height: 160px;
     background-color: var(--fff);
     box-shadow: 0px 0px 8px var(--000);
     margin-left: -175px;
@@ -618,13 +618,14 @@ button.BTN_Upload::after{
     border-radius: 10px;
     padding: 10px 15px;
     animation: AnSlide 1s  ease forwards;
+    overflow: hidden;
   }
   @keyframes AnSlide {
     0%{
       height: 0px;
     }
     100%{
-       height: 140px;
+       height: 160px;
     }
   }
 

@@ -56,21 +56,24 @@ const Navbar = (  ) => {
 
  useEffect(() => {
   const fetchNavbarData = () => {
-    fetch('/navbar')
-      .then(response => response.json())
-      .then(data => {
-        setIsLoggedIn(data.isLoggedIn);
-        setUser(data.user);
-       fetchNavbarData();
+    axios.get('/navbar')
+      .then(response => {
+        const { isLoggedIn, user } = response.data;
+        setIsLoggedIn(isLoggedIn);
+        setUser(user);
       })
       .catch(error => console.error('Error fetching navbar data:', error));
   };
-     fetchNavbarData(); 
 
-  return () => {
+  fetchNavbarData(); 
 
-  };
+  const intervalId = setInterval(fetchNavbarData, 1500); // Example: fetch every 60 seconds
+
+  return () => clearInterval(intervalId);
 }, []);
+
+
+
 
   const handleLogout = () => {
     axios.post('/logout')
@@ -87,6 +90,18 @@ const Navbar = (  ) => {
   
     setIsVisible(!isVisible);
   };
+
+  const truncateName = (name, maxLength) => {
+    if (name.length <= maxLength) {
+      return name;
+    } else {
+      const truncatedName = name.substring(0, maxLength);
+      return truncatedName + '...';
+    }
+  };
+  
+  // Assuming user is an object containing user details
+  const userName = user ? truncateName(user.name, 15) : 'user';
 
   return (
     <>
@@ -173,7 +188,7 @@ const Navbar = (  ) => {
                     {isLoggedIn ? ( 
                       <>
                         <div className='User_Name_Id'>
-                              <p className='User_Name_D'> Welcome {user? user.name: 'user' } </p>
+                              <p className='User_Name_D' title={user? user.name: 'user' } > Welcome {userName } </p>
                         </div>
                       </> 
                       ):(
@@ -247,7 +262,7 @@ const Navbar = (  ) => {
                        <div className='Profle_Image_Content'>
                          <div className='Profile_Img_Det'>
                             <div className='User_Name_Id'>
-                              <p className='User_Name_D'> Welcome {user? user.name: 'user' } </p>
+                              <p className='User_Name_D' title={user? user.name: 'user' } > Welcome {userName } </p>
                             </div>
                          </div>
                          <div className='Profile_Img_Det' >
