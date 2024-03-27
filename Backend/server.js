@@ -2,6 +2,12 @@ const express = require('express');
 const mysql = require('mysql');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const cors = require('cors')
+//below two for to upload image in database
+const multer = require('multer');
+const path = require('path'); 
+const fs = require('fs');
+
 
 const app = express();
 const port = 3030;
@@ -9,6 +15,9 @@ const port = 3030;
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
+// below for to show image 
+app.use(express.static('public'));
 
 // Session configuration
 app.use(session({
@@ -17,6 +26,17 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+const storage = multer.diskStorage({
+  destination: (req, file ,cb ) =>{
+     cb(null,'public/userimages')
+  },
+  filename:(req, file, cd) => {
+    cd(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
+  }
+})
+const  updateprofile = multer({
+  storage: storage
+})
 
 // Create MySQL connection
 const db = mysql.createConnection({
@@ -35,6 +55,9 @@ db.connect((err) => {
   }
   console.log('Connected to MySQL database and listening on port', port);
 });
+
+
+
 
 // Signup Endpoint
 app.post('/Signup', (req, res) => {
@@ -89,7 +112,7 @@ app.post('/Signup', (req, res) => {
   });
 });
 
-
+// login End point
 app.post('/login', (req, res) => {
   const { login, password } = req.body;
   const sql = 'SELECT * FROM signup WHERE (userid = ? OR email = ?) AND password = ?';
@@ -119,7 +142,6 @@ app.post('/login', (req, res) => {
     req.session.user = user;
 
     // Login successful
-    console.log('SQL Query:', sql);
     console.log('Values:', [login, password]);
     console.log('User logged in successfully');
     return res.status(200).json({ message: 'User logged in successfully', isLoggedIn: true, user });
@@ -140,6 +162,33 @@ app.get('/navbar', (req, res) => {
   }
 });
 
+app.get('/user-profile', (req, res) => {
+  const userEmail = req.session.user && req.session.user.email;
+  if (!userEmail) {
+    res.status(400).json({ error: 'User email not found in session' });
+    return;
+  }
+
+  db.query('SELECT * FROM signup WHERE email = ?', [userEmail], (err, result) => {
+    if (err) {
+      console.error('Error fetching user profile data:', err);
+      res.status(500).json({ error: 'An error occurred while fetching user profile data' });
+      return;
+    }
+
+    if (result.length === 0) {
+      res.status(404).json({ error: 'User profile not found' });
+      return;
+    }
+
+    // Send the user profile data to the frontend
+    const user = result[0];
+    res.json({ user });
+  });
+});
+
+
+
 // Logout Endpoint
 app.post('/logout', (req, res) => {
   // Clear session data
@@ -155,6 +204,59 @@ app.post('/logout', (req, res) => {
 });
 
 
+// Update profile end point
+app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
+  const newImage = req.file;
+  const { name, userid, email, phoneno, dob, gender } = req.body;
+
+  // Retrieve the old image file name from the database
+  db.query('SELECT image FROM signup WHERE email = ? AND userid = ?', [email, userid], (err, result) => {
+    if (err) {
+      console.error('Error fetching old image:', err);
+      res.status(500).json({ error: 'An error occurred while updating profile' });
+      return;
+    }
+
+    const oldImage = result[0]?.image;
+
+    // SQL query to update profile where email and userid match
+    const sql = 'UPDATE signup SET name = ?, phoneno = ?, dob = ?, gender = ?, image = ? WHERE email = ? AND userid = ?';
+    const values = [name, phoneno, dob, gender, newImage.filename, email, userid];
+
+    // Execute the query to update the user profile with the new image
+    db.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error updating profile:', err);
+        res.status(500).json({ error: 'An error occurred while updating profile' });
+        return;
+      }
+
+      // Check if there's an existing image associated with the user
+      if (oldImage && newImage) {
+        const oldImagePath = path.join(__dirname, 'public', 'userimages', oldImage);
+
+        // Delete the older image
+        fs.unlink(oldImagePath, (err) => {
+          if (err) {
+            console.error('Error deleting old image:', err);
+            return;
+          }
+          console.log('Old image deleted successfully');
+        });
+      }
+
+      console.log('Profile updated successfully');
+      res.status(200).json({ message: 'Profile updated successfully' });
+    });
+  });
+});
+
+
+
+
+
+
+
 // Server Setup
 app.get('/', (req, res) => {
   res.send('Server is running on port 3030');
@@ -164,3 +266,4 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+ 

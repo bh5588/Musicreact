@@ -43,11 +43,11 @@ const Signup = () => {
           const randomIndex = Math.floor(Math.random() * characters.length);
           tokenkey += characters.charAt(randomIndex);
       }
-  
+      
       return tokenkey;
   }
   
-  const tokenkey = generateRandomString(16);
+  const tokenkey = generateRandomString(32);
 
      event.preventDefault();
     const randomKey = OTPRandomNumber();
@@ -109,7 +109,7 @@ const Signup = () => {
               </div>
               <div className='Name-User_Field'>
                 <div className="input-field">
-                  <input type="text" required name='userid' onChange={handleSign} value={values.userid}/>
+                  <input type="text" required name='userid' minLength={8} maxLength={11} onChange={handleSign} value={values.userid}/>
                   <label className='Enter_Email'>User Id</label>
                   
                 </div>

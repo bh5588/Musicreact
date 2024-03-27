@@ -184,24 +184,27 @@ nav.Music_Explore {
     width: 150px;
   }
   
-  div.Down_Home{
+  div.Down_Home {
     margin-top: 15px;
     font-size: 20px;
     margin-bottom: 15px;
   }
-  .Home_name{
+  
+  .Home_name {
     text-decoration: none;
     position: relative;
-    color:var(--373433);
+    color: var(--373433);
     font-weight: 700;
     font-family: "Poppins", sans-serif;
     transition: all 0.3s ease-in-out;
     font-size: 25px;
   }
-  .Home_name:hover{
+  
+  .Home_name:hover {
     color: var(--000);
   }
-  .Home_name::after{
+  
+  .Home_name::after {
     content: '';
     width: 0px;
     height: 3px;
@@ -209,16 +212,17 @@ nav.Music_Explore {
     background: var(--bule);
     position: absolute;
     bottom: -8%;
-    left: 50%; 
+    left: 50%;
     transform: translateX(-50%);
     transition: 0.3s all ease-in-out;
   }
-  .Down_Home:hover .Home_name::after {
+  .Home_name:hover::after {
     width: 90px;
-  }
-  .fa-home{
+  }  
+  .fa-home {
     margin-right: -4px;
   }
+  
   .Home_name:hover #Fa_Home_B {
     animation: bounce 1.5s linear;
   }
@@ -234,6 +238,7 @@ nav.Music_Explore {
       transform: translateY(-5px);
     }
   }
+  
   
   .Btn_Search{
     text-decoration: none;
@@ -259,7 +264,7 @@ nav.Music_Explore {
     transform: translateX(-50%);
     transition: 0.3s all ease-in-out;
   }
-  .Search_All:hover .Btn_Search::after {
+  .Btn_Search:hover::after{
     width: 100px;
   }
   
@@ -557,10 +562,9 @@ button.BTN_Upload::after{
     transform: translateX(-50%);
     transition: 0.3s all ease-in-out;
   }
-  .File_Upload:hover button.BTN_Upload::after {
+  button.BTN_Upload:hover::after {
     width: 155px;
-  }
-
+  }  
   button.BTN_Upload:hover #Fa-Upload {
     animation: bounce 1.5s linear;
   }
@@ -610,7 +614,7 @@ button.BTN_Upload::after{
   div.Profle_Image_Content{
     position: absolute;
     width: 250px;
-    height: 160px;
+    height: 145px;
     background-color: var(--fff);
     box-shadow: 0px 0px 8px var(--000);
     margin-left: -175px;
@@ -625,7 +629,7 @@ button.BTN_Upload::after{
       height: 0px;
     }
     100%{
-       height: 160px;
+       height: 145px;
     }
   }
 
@@ -696,6 +700,91 @@ h3.Dark_Btn_color{
     font-size: 21px !important;
   }
   
-
+div.Details_User{
+  margin-top: 30px;
+  animation: NameAMI 30s forwards 20s ;
+}
+div.Music_Explore{
+  background-color: var(--F5F5F5);
+   width: 180%;
+   padding: 10px 20px;
+   border-radius: 10px;
+   box-shadow: 1px 3px 10px var(--box);
+   padding-bottom: 30px;
+   animation: NavLeftdealy 2s forwards 1s ease-in-out; 
+   transition: all 0.3s ease-in-out; 
+   opacity: 0;
+ } 
+ @media screen and (max-width:1065px) {
+  div.Music_Explore{
+    width: 150%;
+  }
+ }
+ @media screen and (max-width:980px) {
+  div.Music_Explore{
+    width: 130%;
+  }
+ }
+ @media screen and (max-width:940px){
+  div.Music_Explore{
+    background-color: transparent;
+    width: auto;
+    box-shadow:none;
+    padding: 0px;
+  }
+ }
+ @keyframes NavLeftdealy { 
+   0% { 
+     transform: translateX(-100%); 
+     opacity: 0; 
+   } 
+   100% { 
+     transform: translateX(0%); 
+     opacity: 1; 
+   } 
+ }
+.Btn_Search{
+    text-decoration: none;
+    position: relative;
+    color:var(--373433);
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease-in-out;
+    font-size: 22px; 
+  }
+  .Btn_Search:hover{
+    color: var(--000);
+  }
+  .Btn_Search::after{
+    content: '';
+    width: 0px;
+    height: 3px;
+    border-radius: 5px;
+    background: var(--bule);
+    position: absolute;
+    bottom: -8%;
+    left: 50%; 
+    transform: translateX(-50%);
+    transition: 0.3s all ease-in-out;
+  }
+  .Btn_Search:hover::after{
+    width: 100px;
+  }
+  
+  .Btn_Search:hover #Info_Cricle {
+    animation: bounces 1.5s linear;
+  }
+  
+  @keyframes bounces {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
 
 

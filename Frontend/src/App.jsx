@@ -7,6 +7,8 @@ import Home from './Components/Home';
 import Search from './Components/Search';
 import About from './Components/About';
 import Model from './Components/Model';
+import Musicupload from './MusicUpload/Musicupload'
+import profile from './Userprofile/profile';
 
 const App = () => {
 
@@ -15,6 +17,8 @@ const App = () => {
       <Router>
       <Navbar />
         <Switch>
+        <Route path="/profile" component={profile} />
+        <Route path="/Musicupload" component={Musicupload} />
           <Route path="/Model" component={Model} />
           <Route path="/About" component={About} />
           <Route path="/Search" component={Search} />

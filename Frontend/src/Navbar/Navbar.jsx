@@ -101,57 +101,77 @@ const Navbar = (  ) => {
   };
   
   // Assuming user is an object containing user details
-  const userName = user ? truncateName(user.name, 15) : 'user';
+  const userName = user ? truncateName(user.userid, 15) : 'user';
 
   return (
     <>
       <nav className='Music_Explore'>
-
-        <div className='Music_Explore_logo'>
-          <div className='Music_Explore_title'>
-            <h1 className='Music_tittle'>
-              <Link className="Music_Home" to="/Home">Music Explore</Link>
-            </h1>
-            <div className='Music_theme'>
-             {/* Home  Page Button */}
-            <div className='Down_Home'>
-                <Link  className="Home_name" to="/Home" >
-                     <i id="Fa_Home_B" class="fa fa-home" aria-hidden="true"></i> Home</Link>
-            </div>
-             {/* Home Page Btn Here End */}
-           
-             {/* Start Upload Files Start Here */}
- 
-             {isLoggedIn ?  (
-
-              <>
-              <div className='File_Upload'>
-                  <button className='BTN_Upload'> <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
-              </div>
-              </>
-             ):(
-
-              <div className='File_Upload'>
-              <button className='BTN_Upload' onClick={handleClick} > <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
-              </div>
-
-             )}
-             
+        <div className='Music_Explore_logo-1'>
+            <div className='Music_Explore_logo'>
+              <div className='Music_Explore_title'>
+                <h1 className='Music_tittle'>
+                  <Link className="Music_Home" to="/Home">Music Explore</Link>
+                </h1>
+                <div className='Music_theme'>
+                {/* Home  Page Button */}
+                <div className='Down_Home'>
+                    <Link  className="Home_name" to="/Home" >
+                        <i id="Fa_Home_B" class="fa fa-home" aria-hidden="true"></i> Home</Link>
+                </div>
+                {/* Home Page Btn Here End */}
               
-             {/* Start Upload Files End here */}
-             
-             
-             {/* Search Button */}
-              
-              <div className='Search_btn'>
-                <div className='Search_All'>
-                    <Link to='/About' className='Btn_Search'> <i id="Info_Cricle" class="fa fa-info-circle" aria-hidden="true"></i> About</Link>
+                {/* Start Upload Files Start Here */}
+    
+                {isLoggedIn ?  (
+
+                  <>
+                  <div className='File_Upload'>
+                      <button className='BTN_Upload'> <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                      
+                  </div>
+                  </>
+                ):(
+
+                  <div className='File_Upload'>
+                  <button className='BTN_Upload' onClick={handleClick} > <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                  </div>
+
+                )}
+                
+                  
+                {/* Start Upload Files End here */}
+                
+                
+                {/* Search Button */}
+                  
+                  <div className='Search_btn'>
+                    <div className='Search_All'>
+                        <Link to='/About' className='Btn_Search'> <i id="Info_Cricle" class="fa fa-info-circle" aria-hidden="true"></i> About</Link>
+                    </div>
+                  </div>
+
+                {/* Search Button End */}
                 </div>
               </div>
-
-             {/* Search Button End */}
-             </div>
-          </div>
+            </div>
+            {isLoggedIn ?  (<>
+              <div className='Details_User'>
+                  <div className='Music_Explore'>
+                    <div className='Down_Home'>
+                      <Link className="Home_name" to="/Profile">
+                        <i id="Fa_Home_B" class="fa fa-user" aria-hidden="true">
+                          </i> Profile</Link>
+                    </div>
+                    <div className='Down_Home'>
+                      <Link className="Home_name" to="/Profile">
+                        <i id="Fa_Home_B" class="fa fa-music" aria-hidden="true">
+                          </i> upload Files</Link>
+                    </div>
+                <i class="fa-solid fa-list-music"></i>
+                    <i class="fas fa-list-music"></i>
+                  </div>
+              </div>
+            </>):""}
         </div>
          
          <div className='Music_Disable_Search-1'>
@@ -188,7 +208,7 @@ const Navbar = (  ) => {
                     {isLoggedIn ? ( 
                       <>
                         <div className='User_Name_Id'>
-                              <p className='User_Name_D' title={user? user.name: 'user' } > Welcome {userName } </p>
+                              <p className='User_Name_D' title={user? user.userid: 'user' } > Hi {user? user.userid: 'user' } </p>
                         </div>
                       </> 
                       ):(
@@ -209,6 +229,7 @@ const Navbar = (  ) => {
                   
                     <div className='File_Upload'>
                       <button className='BTN_Upload' onClick ={handleCloseMenu}> <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                     
                     </div>
             
                     ) :(
@@ -262,7 +283,7 @@ const Navbar = (  ) => {
                        <div className='Profle_Image_Content'>
                          <div className='Profile_Img_Det'>
                             <div className='User_Name_Id'>
-                              <p className='User_Name_D' title={user? user.name: 'user' } > Welcome {userName } </p>
+                              <p className='User_Name_D' title={user? user.userid: 'user' } > Hi {user? user.userid: 'user' } </p>
                             </div>
                          </div>
                          <div className='Profile_Img_Det' >
