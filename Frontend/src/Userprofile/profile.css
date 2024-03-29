@@ -7,7 +7,7 @@ div.User_profile_id{
     width: 100%; 
     height: 100%; 
     margin: auto;
-    overflow: hidden; 
+    overflow: auto; 
     background-color: var(--fff);
     transition: all 0.1s ease-in-out;
     animation: profile 1s ease-in-out;
@@ -26,6 +26,7 @@ div.User_profile_id{
     justify-content: space-between;
     margin-top: 10px;
     margin-right: 10px;
+    align-items: center;
   }
   .Back_to-Home{
     text-decoration: none;
@@ -38,6 +39,12 @@ div.User_profile_id{
     border: 2px solid transparent;
     transition: all 0.3s ease-in-out;
     transform: scale(0.85);
+  }
+  @media screen and (max-width:600px) {
+    .Back_to-Home{
+      font-size: 16px;
+      padding: 10px 20px 10px 20px;
+    }
   }
   .Back_to-Home:hover{
     background-color: var(--fff);
@@ -52,6 +59,29 @@ div.User_profile_id{
   div.User_profile_M{
     width: 60%;
     margin: auto;
+    transition: all 0.3s ease-in-out;
+  }
+  @media screen and (max-width:1100px) {
+    div.User_profile_M{
+      width: 70%;
+    }
+  }
+  @media screen and (max-width:800px) {
+    div.User_profile_M{
+      width: 80%;
+    }
+  }
+  @media screen and (max-width:600px) {
+    div.User_profile_M{
+      width: 80%;
+      margin: auto;
+      margin-top: 20px;
+    }
+  }
+  @media screen and (max-width:300px) {
+    div.User_profile_M{
+      overflow: hidden;
+    }
   }
   div.Upload_Img{
     justify-content: center;
@@ -103,15 +133,41 @@ div.Upload_Btn_image{
 div.User_Name_Id_profile{
   margin-top: 35px;
 }
+@media screen and (max-width:600px) {
+  div.User_Name_Id_profile{
+    margin-top: 20px;
+    transition: all 0.3s ease-in-out;
+  }
+}
 div.User_Name_Id_profile{
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 18px 30px;
+  transition: all 0.3s ease-in-out;
+}
+@media screen and (max-width:1000px) {
+  div.User_Name_Id_profile{
+    grid-gap: 15px 20px;
+  }
+}
+@media screen and (max-width:780px) {
+  div.User_Name_Id_profile{
+    grid-gap: 10px 15px;
+  }
+}
+@media screen and (max-width:600px) {
+  div.User_Name_Id_profile{
+    grid-template-columns: auto;
+  }
 }
 p.Name_User_Profile{
   color: var(--000);
   font-size: 18px;
-
+}
+@media screen and (max-width:780px) {
+  p.Name_User_Profile{
+    font-size: 16px;
+  }
 }
 .Input_Profile{
   width: 90%;
@@ -132,6 +188,11 @@ p.Name_User_Profile{
 div.Submit_Profile_btn-BTNS{
   display: flex;
   justify-content: center;
+}
+@media screen and (max-width:600px) {
+  div.Submit_Profile_btn-BTNS{
+    justify-content: space-between;
+  }
 }
   button.Profile_Sub_Btn{
     width: 40%;
@@ -157,7 +218,17 @@ div.Submit_Profile_btn-BTNS{
      letter-spacing: 2px;
      transform: scale(0.95);
     }
-  
+  @media screen and (max-width:800px) {
+    button.Profile_Sub_Btn{
+      width: 50%;
+    }
+  }
+  @media screen and (max-width:600px) {
+    button.Profile_Sub_Btn{
+      width: 90%;
+      margin-top: 20px;
+    }
+  }
     button.Profile_Sub_Btn:hover{
     background-position: right center;
     color: #fff;

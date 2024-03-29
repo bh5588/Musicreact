@@ -112,7 +112,7 @@ const profile = () => {
                     {selectedImage ? (
                         <img src={selectedImage} alt="Selected" className='Img_preview'/>
                       ) : (
-                        <img  herf="javavalid[0]" src={user.image ? `/userimages/${user.image}` : ''}  className='Img_preview_Back'/>
+                        <img  src={user.image ? `/userimages/${user.image}` : ''}  className='Img_preview_Back'/>
                       )}
                         <div className='Upload_Btn_image'>
                           <input type="file" id="fileInput" className="fileInput" name='image' onChange={handleImageChange}  accept=".jpg, .jpeg, .png"  />

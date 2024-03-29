@@ -67,7 +67,7 @@ const Navbar = (  ) => {
 
   fetchNavbarData(); 
 
-  const intervalId = setInterval(fetchNavbarData, 1500); // Example: fetch every 60 seconds
+  const intervalId = setInterval(fetchNavbarData, 2500); // Example: fetch every 60 seconds
 
   return () => clearInterval(intervalId);
 }, []);
@@ -157,11 +157,7 @@ const Navbar = (  ) => {
             {isLoggedIn ?  (<>
               <div className='Details_User'>
                   <div className='Music_Explore'>
-                    <div className='Down_Home'>
-                      <Link className="Home_name" to="/Profile">
-                        <i id="Fa_Home_B" class="fa fa-user" aria-hidden="true">
-                          </i> Profile</Link>
-                    </div>
+                    
                     <div className='Down_Home'>
                       <Link className="Home_name" to="/Profile">
                         <i id="Fa_Home_B" class="fa fa-music" aria-hidden="true">
@@ -215,12 +211,12 @@ const Navbar = (  ) => {
                       <></>
                       )}
                     <div className='Down_Home'>
-                        <Link id="Home_Home-Close" className="Home_name" to="/Home" onClick={handleCloseMenu} >
-                          <i id="Fa_Home_B" class="fa fa-home" aria-hidden="true"></i> Home</Link>
+                        <Link id="Home_Home-Close" className="Home_name_Link" to="/Home" onClick={handleCloseMenu} >
+                          <i id="Fa_Home_B" class="fa fa-home" aria-hidden="true"></i> Homes</Link>
                     </div>
                     <div className='In_Side_Search'>
                       <div className='Down_Home'>
-                      <Link id="Home_Home-Close" className="Home_name" to="/Search" onClick={handleCloseMenu} >
+                      <Link id="Home_Home-Close" className="Home_name_Link" to="/Search" onClick={handleCloseMenu} >
                           <i id="Fa_Home_B" class="fa fa-search" aria-hidden="true"></i> Search</Link>
                       </div>
                     </div>
@@ -228,28 +224,32 @@ const Navbar = (  ) => {
                     {isLoggedIn ?  (
                   
                     <div className='File_Upload'>
-                      <button className='BTN_Upload' onClick ={handleCloseMenu}> <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                      <button className='BTN_Upload_Max' onClick ={handleCloseMenu}> <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
                      
                     </div>
             
                     ) :(
                       <div className='File_Upload'>
-                          <button className='BTN_Upload'onClick={() => { handleClick(); handleCloseMenu(); }}>  <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                          <button className='BTN_Upload_Max'onClick={() => { handleClick(); handleCloseMenu(); }}>  <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
                       </div>
                     )}
                     
                    
                     <div className='Search_btn'>
                       <div className='Search_All'>
-                          <Link to='/About' onClick={handleCloseMenu} className='Btn_Search'> <i id="Info_Cricle" class="fa fa-info-circle" aria-hidden="true"></i> About</Link>
+                          <Link to='/About' onClick={handleCloseMenu} className='Home_name_Link'> <i id="Fa_Home_B" class="fa fa-info-circle" aria-hidden="true"></i> About</Link>
                       </div>
                     </div>
                  
                     {isLoggedIn ?  (
                         <>
-                        
+                        <div className='Down_Home_Profile-max_P'>
+                            <Link className="Home_name-profile" to="/Profile">
+                              <i id="Fa_Home_profile" class="fa fa-user" aria-hidden="true">
+                                </i> Profile</Link>
+                         </div>
                         <div className='Log-OuT_DE'>
-                            <button className='Logout_Btn LO_BN' onClick={handleLogout}> <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+                            <button className='Logout_Btn LO_BN' onClick={handleLogout}> <i id="Fa_Sign_Out_Profile" class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
                         </div>
                         
                         </>
@@ -257,11 +257,11 @@ const Navbar = (  ) => {
                     ):(
                        <>
                        <div className='Down_Home'>
-                        <Link  className="Home_name" to="/Signup" onClick={handleCloseMenu} >
-                        <i id="Fa_Home_B" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign up</Link>
-                    </div>
+                        <Link  className="Home_name_Link" to="/Signup" onClick={handleCloseMenu} >
+                        <i id="Fa_Home_Sign" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign up</Link>
+                       </div>
                     <div className='Down_Home'>
-                        <Link  className="Home_name" to="/Login" onClick={handleCloseMenu} >
+                        <Link  className="Home_name_Link" to="/Login" onClick={handleCloseMenu} >
                         <i id="Fa_Home_B" class="fa fa-user" aria-hidden="true"></i> Login</Link>
                     </div>
                        </>
@@ -286,6 +286,11 @@ const Navbar = (  ) => {
                               <p className='User_Name_D' title={user? user.userid: 'user' } > Hi {user? user.userid: 'user' } </p>
                             </div>
                          </div>
+                         <div className='Down_Home_Profile'>
+                            <Link className="Home_name-profile" to="/Profile">
+                              <i id="Fa_Home_profile" class="fa fa-user" aria-hidden="true">
+                                </i> Profile</Link>
+                         </div>
                          <div className='Profile_Img_Det' >
                             <div className='Dark_mode'>
                                <div className='Dark_Mode_Switch_Name'>
@@ -298,7 +303,7 @@ const Navbar = (  ) => {
                           </div>
                          <div className='Profile_Img_De' >
                             <div className='Logout_user'>
-                              <button className='Logout_Btn' onClick={handleLogout}> <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+                              <button className='Logout_Btn' onClick={handleLogout}> <i id="Fa_Sign_Out_Profile" class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
                             </div>
                           </div>
                        </div>

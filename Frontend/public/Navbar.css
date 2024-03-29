@@ -16,6 +16,8 @@
     --bule:#ff9700;
     --373433:#ccc;
     --sun:url('./Svg/Moon.svg');
+    --111111:#fff;
+    --555555:#f0ffff;
 }
 body{
   --fgj:#f5f5f5;
@@ -26,6 +28,8 @@ body{
    --bule:#ccc;
    --373433:#373433;
    --sun:url('./Svg/Sun.svg');
+   --111111:#111111;
+   --555555:#555555;
    
 }
 body{
@@ -189,21 +193,30 @@ nav.Music_Explore {
     font-size: 20px;
     margin-bottom: 15px;
   }
+  @media screen and (max-width:940px) {
+    div.Down_Home{
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
   
-  .Home_name {
+  .Home_name,.Home_name_Link {
     text-decoration: none;
     position: relative;
     color: var(--373433);
     font-weight: 700;
     font-family: "Poppins", sans-serif;
     transition: all 0.3s ease-in-out;
-    font-size: 25px;
+    font-size: 23px;
   }
   
-  .Home_name:hover {
+  .Home_name:hover{
     color: var(--000);
   }
-  
+  .Home_name_Link:hover {
+    color: var(--000);
+    padding-left: 10px;
+  }
   .Home_name::after {
     content: '';
     width: 0px;
@@ -223,7 +236,8 @@ nav.Music_Explore {
     margin-right: -4px;
   }
   
-  .Home_name:hover #Fa_Home_B {
+  .Home_name:hover #Fa_Home_B,
+  .Home_name_Link:hover #Fa_Home_B{
     animation: bounce 1.5s linear;
   }
   
@@ -238,8 +252,37 @@ nav.Music_Explore {
       transform: translateY(-5px);
     }
   }
+  div.Down_Home_Profile{
+    margin-top: 8px ;
+    margin-bottom: 5px;
+  }
+  .Home_name-profile{
+    text-decoration: none;
+    position: relative;
+    color: var(--000);
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease-in-out;
+    font-size: 22px;
+  }
+  .Home_name-profile:hover{
+    padding-left: 10px;
+  }
+  .Home_name-profile:hover #Fa_Home_profile {
+    animation: bouncepro 1.5s linear;
+  }
   
-  
+  @keyframes bouncepro {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
   .Btn_Search{
     text-decoration: none;
     position: relative;
@@ -380,13 +423,19 @@ nav.Music_Explore {
       opacity: 1; 
     } 
   }
-  .fa-bars,
-  .fa-times{
+  .fa-bars{
     color: var(--000);
     font-size: 20px !important;
     margin-right: 20px;
     margin-top: 10px;
     transition: all 0.3s ease-in-out; 
+}
+.fa-times{
+  color: var(--000);
+  font-size: 25px !important;
+  margin-right: 20px;
+  margin-top: 10px;
+  transition: all 0.3s ease-in-out;
 }
 
   #menuTrigger:checked ~ .Bars_Link_Music {
@@ -506,7 +555,7 @@ div.In_Side_Search{
   position: absolute;
   font-size: 20px;
    z-index: -1;
-   margin-top: 10px;
+   margin-top: 15px;
    margin-left: 5px;
    font-size: 20px;
    color: var(--000);
@@ -538,8 +587,13 @@ div.In_Side_Search{
 div.File_Upload{
   margin-bottom: 15px;
 }
-
-button.BTN_Upload{
+@media screen and (max-width:940px) {
+  div.File_Upload{
+    margin-bottom: 10px;
+  }
+}
+button.BTN_Upload,
+button.BTN_Upload_Max{
   background-color: transparent;
   border: none;
   color: var(--000);
@@ -565,7 +619,11 @@ button.BTN_Upload::after{
   button.BTN_Upload:hover::after {
     width: 155px;
   }  
-  button.BTN_Upload:hover #Fa-Upload {
+  button.BTN_Upload_Max:hover{
+    padding-left: 10px;
+  }
+  button.BTN_Upload:hover #Fa-Upload,
+  button.BTN_Upload_Max:hover #Fa-Upload{
     animation: bounce 1.5s linear;
   }
   
@@ -614,7 +672,7 @@ button.BTN_Upload::after{
   div.Profle_Image_Content{
     position: absolute;
     width: 250px;
-    height: 145px;
+    height: 188px;
     background-color: var(--fff);
     box-shadow: 0px 0px 8px var(--000);
     margin-left: -175px;
@@ -629,7 +687,7 @@ button.BTN_Upload::after{
       height: 0px;
     }
     100%{
-       height: 145px;
+       height: 188px;
     }
   }
 
@@ -690,6 +748,22 @@ h3.Dark_Btn_color{
   @media screen and (max-width:940px) {
     div.Head_Card{
       display: none;
+    }
+  }
+  button.Logout_Btn:hover #Fa_Sign_Out_Profile,
+  .Home_name_Link:hover #Fa_Home_Sign{
+    animation: bouncesleftprofile 1.5s linear;
+  }
+  
+  @keyframes bouncesleftprofile {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translatex(0);
+    }
+    40% {
+      transform: translatex(-10px);
+    }
+    60% {
+      transform: translatex(-5px);
     }
   }
   div.Log-OuT_DE{
@@ -786,5 +860,13 @@ div.Music_Explore{
       transform: translateY(-5px);
     }
   }
-
+div.Down_Home_Profile-max_P{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+@media screen and (max-width:940px) {
+  div.Details_User{
+  display: none;
+  }
+}
 

@@ -155,12 +155,13 @@ app.get('/navbar', (req, res) => {
   // Check if user is logged in
   if (req.session.isLoggedIn) {
     // User is logged in, send relevant data from session
-    return res.json({ isLoggedIn: true, user: req.session.user });
+    res.json({ isLoggedIn: true, user: req.session.user });
   } else {
     // User is not logged in
-    return res.json({ isLoggedIn: false });
+    res.json({ isLoggedIn: false });
   }
 });
+
 
 app.get('/user-profile', (req, res) => {
   const userEmail = req.session.user && req.session.user.email;
@@ -204,7 +205,7 @@ app.post('/logout', (req, res) => {
 });
 
 
-// Update profile end point
+// Update profile endpoint
 app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
   const newImage = req.file;
   const { name, userid, email, phoneno, dob, gender } = req.body;
@@ -219,11 +220,14 @@ app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
 
     const oldImage = result[0]?.image;
 
+    // Determine the image to use based on whether a new image is uploaded
+    const imageToUpdate = newImage ? newImage.filename : oldImage;
+
     // SQL query to update profile where email and userid match
     const sql = 'UPDATE signup SET name = ?, phoneno = ?, dob = ?, gender = ?, image = ? WHERE email = ? AND userid = ?';
-    const values = [name, phoneno, dob, gender, newImage.filename, email, userid];
+    const values = [name, phoneno, dob, gender, imageToUpdate, email, userid];
 
-    // Execute the query to update the user profile with the new image
+    // Execute the query to update the user profile with the new image or previous image
     db.query(sql, values, (err, result) => {
       if (err) {
         console.error('Error updating profile:', err);
@@ -231,7 +235,7 @@ app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
         return;
       }
 
-      // Check if there's an existing image associated with the user
+      // Check if there's an existing image associated with the user and a new image is uploaded
       if (oldImage && newImage) {
         const oldImagePath = path.join(__dirname, 'public', 'userimages', oldImage);
 
@@ -241,6 +245,8 @@ app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
             console.error('Error deleting old image:', err);
             return;
           }
+          console.log(oldImage);
+          console.log(newImage);
           console.log('Old image deleted successfully');
         });
       }
@@ -250,11 +256,6 @@ app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
     });
   });
 });
-
-
-
-
-
 
 
 // Server Setup
