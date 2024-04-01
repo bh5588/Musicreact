@@ -51,7 +51,7 @@ const Signup = () => {
 
      event.preventDefault();
     const randomKey = OTPRandomNumber();
-    axios.post('/Signup', {
+    axios.post('/signup', {
       name: values.name,
       userid: values.userid,
       email: values.email,
