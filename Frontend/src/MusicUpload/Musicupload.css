@@ -33,7 +33,35 @@ div.Music_Title{
     border-radius: 10px;
     box-shadow: 0px 0px 4px var(--000);
 }
-
+div.Close_Btn_music{
+    justify-content: flex-end;
+    display: flex;
+    padding-right: 10px;
+    padding-top: 10px;
+    position: absolute;
+    right: 0;
+}
+button.Close_Button_Music{
+    background-color: transparent;
+    outline: none;
+    border: 1px solid var(--000);
+    font-size: 20px;
+    color: var(--000);
+    cursor: pointer;
+    padding: 1px 7px 0px 7px;
+    font-weight: 700;
+    border-radius: 5px;
+    transform: scale(0.85);
+    transition: all 0.3s ease-in-out;
+}
+button.Close_Button_Music:hover{
+    background-color: var(--000);
+    color: var(--fff);
+    transform: scale(1);
+}
+#Music_Times-Fa{
+    font-weight: 700;
+}
 h1.Music_Name_Upload_q{
     font-size: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -51,3 +79,51 @@ div.Content_Music{
     margin: auto;
     margin-top: 20px;
 }
+div.Inputs_Music_grid{
+    display: grid;
+    grid-template-columns: auto auto;
+   grid-column-gap: 30px;
+}
+.musicupload_Inputs{
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  .musicupload_Inputs input[type='text']{
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    font-size: 16px;
+    padding: 15px 10px;
+    border: 2px solid var(--000);
+    background: transparent;
+    color: var(--000);
+    outline: none;
+  }
+  .musicupload_Inputs label.Music_Upolad_L{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--000);
+    font-size: 17px;
+    pointer-events: none;
+    transition: 0.3s;
+  }
+  input[type='text']:hover{
+    box-shadow: 0 0 5pt 0.5pt #D3D3D3;
+  }
+  input[type='text']:focus{
+    border: 2px solid #ff9700;
+    box-shadow: 0 0 5pt 2pt #D3D3D3;
+  }
+  input[type='text']:focus ~ label.Music_Upolad_L,
+  input[type='text']:valid ~ label.Music_Upolad_L{
+    top: 0;
+    left: 15px;
+    font-size: 16px;
+    padding: 0 2px;
+    background: var(--fff);
+    padding-left: 3px;
+    padding-right: 3px;
+  }

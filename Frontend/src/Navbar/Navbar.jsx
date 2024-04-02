@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 const Navbar = (  ) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const history = useHistory();
 
@@ -120,7 +120,7 @@ const Navbar = (  ) => {
                 {/* Home  Page Button */}
                 <div className='Down_Home'>
                     <Link  className="Home_name" to="/Home" >
-                        <i id="Fa_Home_B" class="fa fa-home" aria-hidden="true"></i> Home</Link>
+                        <i id="Fa_Home_B" className="fa fa-home" aria-hidden="true"></i> Home</Link>
                 </div>
                 {/* Home Page Btn Here End */}
               
@@ -130,13 +130,13 @@ const Navbar = (  ) => {
 
                   <>
                   <div className='File_Upload'>
-                      <button className='BTN_Upload' onClick={handlemusicupload} > <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                      <button className='BTN_Upload' onClick={handlemusicupload} > <i id="Fa-Upload" className="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
                   </div>
                   </>
                 ):(
 
                   <div className='File_Upload'>
-                  <button className='BTN_Upload' onClick={handleClick} > <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                  <button className='BTN_Upload' onClick={handleClick} > <i id="Fa-Upload" className="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
                   </div>
 
                 )}
@@ -149,7 +149,7 @@ const Navbar = (  ) => {
                   
                   <div className='Search_btn'>
                     <div className='Search_All'>
-                        <Link to='/About' className='Btn_Search'> <i id="Info_Cricle" class="fa fa-info-circle" aria-hidden="true"></i> About</Link>
+                        <Link to='/About' className='Btn_Search'> <i id="Info_Cricle" className="fa fa-info-circle" aria-hidden="true"></i> About</Link>
                     </div>
                   </div>
 
@@ -163,7 +163,7 @@ const Navbar = (  ) => {
                     
                     <div className='Down_Home'>
                       <Link className="Home_name" to="/Profile">
-                        <i id="Fa_Home_B" class="fa fa-music" aria-hidden="true">
+                        <i id="Fa_Home_B" className="fa fa-music" aria-hidden="true">
                           </i> upload Files</Link>
                     </div>
                 <i class="fa-solid fa-list-music"></i>
@@ -176,7 +176,7 @@ const Navbar = (  ) => {
          <div className='Music_Disable_Search-1'>
           <div className='Music_Search'>
                 <form action="" class="search-bar" onSubmit={handleSearch} >
-                      <i id="Searchbar" class="fa fa-search" aria-hidden="true"></i>
+                      <i id="Searchbar" className="fa fa-search" aria-hidden="true"></i>
                       <input  id="Search_Box-text" type="search" name="search" pattern=".*\S.*" required  autoComplete="off"   value={searchQuery} onChange={handleInputChange} />
                 </form>
           </div>
@@ -189,7 +189,7 @@ const Navbar = (  ) => {
           <div className='Disable_Search-2'>
               <div className='Music_Search'>
                   <form action="" class="search-bar" onSubmit={handleSearch} >
-                      <i id="Searchbar" class="fa fa-search" aria-hidden="true"></i>
+                      <i id="Searchbar" className="fa fa-search" aria-hidden="true"></i>
                       <input id="Search_Box-texts" type="search" name="search" pattern=".*\S.*" required  autoComplete="off"   value={searchQuery} onChange={handleInputChange} />
                   </form>
               </div>
@@ -215,32 +215,32 @@ const Navbar = (  ) => {
                       )}
                     <div className='Down_Home'>
                         <Link id="Home_Home-Close" className="Home_name_Link" to="/Home" onClick={handleCloseMenu} >
-                          <i id="Fa_Home_B" class="fa fa-home" aria-hidden="true"></i> Homes</Link>
+                          <i id="Fa_Home_B" classNames="fa fa-home" aria-hidden="true"></i> Homes</Link>
                     </div>
                     <div className='In_Side_Search'>
                       <div className='Down_Home'>
                       <Link id="Home_Home-Close" className="Home_name_Link" to="/Search" onClick={handleCloseMenu} >
-                          <i id="Fa_Home_B" class="fa fa-search" aria-hidden="true"></i> Search</Link>
+                          <i id="Fa_Home_B" className="fa fa-search" aria-hidden="true"></i> Search</Link>
                       </div>
                     </div>
                   
                     {isLoggedIn ?  (
                   
                     <div className='File_Upload'>
-                      <button className='BTN_Upload_Max'onClick ={() =>{ handleCloseMenu(); handlemusicupload();  }} > <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                      <button className='BTN_Upload_Max'onClick ={() =>{ handleCloseMenu(); handlemusicupload();  }} > <i id="Fa-Upload" className="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
                      
                     </div>
             
                     ) :(
                       <div className='File_Upload'>
-                          <button className='BTN_Upload_Max'onClick={() => { handleClick(); handleCloseMenu(); }}>  <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                          <button className='BTN_Upload_Max'onClick={() => { handleClick(); handleCloseMenu(); }}>  <i id="Fa-Upload" className="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
                       </div>
                     )}
                     
                    
                     <div className='Search_btn'>
                       <div className='Search_All'>
-                          <Link to='/About' onClick={handleCloseMenu} className='Home_name_Link'> <i id="Fa_Home_B" class="fa fa-info-circle" aria-hidden="true"></i> About</Link>
+                          <Link to='/About' onClick={handleCloseMenu} className='Home_name_Link'> <i id="Fa_Home_B" className="fa fa-info-circle" aria-hidden="true"></i> About</Link>
                       </div>
                     </div>
                  
@@ -248,11 +248,11 @@ const Navbar = (  ) => {
                         <>
                         <div className='Down_Home_Profile-max_P'>
                             <Link className="Home_name-profile" to="/Profile">
-                              <i id="Fa_Home_profile" class="fa fa-user" aria-hidden="true">
+                              <i id="Fa_Home_profile" className="fa fa-user" aria-hidden="true">
                                 </i> Profile</Link>
                          </div>
                         <div className='Log-OuT_DE'>
-                            <button className='Logout_Btn LO_BN' onClick={handleLogout}> <i id="Fa_Sign_Out_Profile" class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+                            <button className='Logout_Btn LO_BN' onClick={handleLogout}> <i id="Fa_Sign_Out_Profile" className="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
                         </div>
                         
                         </>
@@ -261,11 +261,11 @@ const Navbar = (  ) => {
                        <>
                        <div className='Down_Home'>
                         <Link  className="Home_name_Link" to="/Signup" onClick={handleCloseMenu} >
-                        <i id="Fa_Home_Sign" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign up</Link>
+                        <i id="Fa_Home_Sign" className="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign up</Link>
                        </div>
                     <div className='Down_Home'>
                         <Link  className="Home_name_Link" to="/Login" onClick={handleCloseMenu} >
-                        <i id="Fa_Home_B" class="fa fa-user" aria-hidden="true"></i> Login</Link>
+                        <i id="Fa_Home_B" classNames="fa fa-user" aria-hidden="true"></i> Login</Link>
                     </div>
                        </>
                     )}
@@ -291,7 +291,7 @@ const Navbar = (  ) => {
                          </div>
                          <div className='Down_Home_Profile'>
                             <Link className="Home_name-profile" to="/Profile">
-                              <i id="Fa_Home_profile" class="fa fa-user" aria-hidden="true">
+                              <i id="Fa_Home_profile" className="fa fa-user" aria-hidden="true">
                                 </i> Profile</Link>
                          </div>
                          <div className='Profile_Img_Det' >
@@ -306,7 +306,7 @@ const Navbar = (  ) => {
                           </div>
                          <div className='Profile_Img_De' >
                             <div className='Logout_user'>
-                              <button className='Logout_Btn' onClick={handleLogout}> <i id="Fa_Sign_Out_Profile" class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+                              <button className='Logout_Btn' onClick={handleLogout}> <i id="Fa_Sign_Out_Profile" className="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
                             </div>
                           </div>
                        </div>
