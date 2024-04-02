@@ -215,7 +215,7 @@ const Navbar = (  ) => {
                       )}
                     <div className='Down_Home'>
                         <Link id="Home_Home-Close" className="Home_name_Link" to="/Home" onClick={handleCloseMenu} >
-                          <i id="Fa_Home_B" classNames="fa fa-home" aria-hidden="true"></i> Homes</Link>
+                          <i id="Fa_Home_B" className="fa fa-home" aria-hidden="true"></i> Homes</Link>
                     </div>
                     <div className='In_Side_Search'>
                       <div className='Down_Home'>
