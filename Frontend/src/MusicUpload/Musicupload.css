@@ -36,7 +36,7 @@ div.Music_Title {
     box-shadow: 0px 0px 4px var(--000);
     transition: all 0.3s ease-in-out;
     animation: musicUploadfade 2s forwards ease-in-out;
-    transform: translate(25%, 20%);
+    transform: translate(27%, 8%);
 }
 
 @keyframes musicUploadfade {
@@ -52,25 +52,25 @@ div.Music_Title {
 @media screen and (max-width:1200px) {
     div.Music_Title{
         margin-bottom: 100px;
-        transform: translate(25%,10%);
+        transform: translate(25%,8%);
     }
 }
 @media screen and (max-width:600px) {
     div.Music_Title{
         width: 80%;
-        transform: translate(12%,10%);
+        transform: translate(12%,8%);
     }
 }
 @media screen and (max-width:500px) {
     div.Music_Title{
         width: 90%;
-        transform: translate(8%,10%);
+        transform: translate(8%,8%);
     }
 }
 @media screen and (max-width:430px) {
     div.Music_Title{
         width: 95%;
-        transform: translate(2.5%,10%);
+        transform: translate(2.5%,8%);
     }
 }
 
@@ -138,7 +138,15 @@ div.Inputs_Music_grid{
     margin-bottom: 5px;
     width: 100%;
   }
-  .musicupload_Inputs input[type='text']{
+  .Price_Song_music{
+    margin-top: 10px;
+  }
+  .musicupload_Input{
+    position: relative;
+    margin-top: 20px;
+  }
+  .musicupload_Inputs input[type='text'],
+  .musicupload_Input input[type='number']{
     width: 100%;
     height: auto;
     border-radius: 6px;
@@ -150,11 +158,13 @@ div.Inputs_Music_grid{
     outline: none;
   }
   @media screen and (max-width:400px) {
-    .musicupload_Inputs input[type='text']{
+    .musicupload_Inputs input[type='text'],
+  .musicupload_Input input[type='number']{
         padding: 10px 7px;
     }
   }
-  .musicupload_Inputs label.Music_Upolad_L{
+  .musicupload_Inputs label.Music_Upolad_L,
+  .musicupload_Input label.Music_Upolad_L{
     position: absolute;
     top: 50%;
     left: 15px;
@@ -164,15 +174,19 @@ div.Inputs_Music_grid{
     pointer-events: none;
     transition: 0.3s;
   }
-  input[type='text']:hover{
+  input[type='text']:hover,
+  input[type='number']:hover{
     box-shadow: 0 0 5pt 0.5pt #D3D3D3;
   }
-  input[type='text']:focus{
+  input[type='text']:focus,
+  input[type='number']:focus{
     border: 2px solid #ff9700;
     box-shadow: 0 0 5pt 2pt #D3D3D3;
   }
   input[type='text']:focus ~ label.Music_Upolad_L,
-  input[type='text']:valid ~ label.Music_Upolad_L{
+  input[type='text']:valid ~ label.Music_Upolad_L,
+  input[type='number']:focus ~ label.Music_Upolad_L,
+  input[type='number']:valid ~ label.Music_Upolad_L{
     top: 0;
     left: 15px;
     font-size: 16px;
@@ -263,4 +277,25 @@ button.Music_Upload_Data:hover{
     span.Br_Line_up{
         display: none;
     }
+}
+p.Note_Music_small{
+    color: var(--000);
+    font-size: 15px;
+}
+.center_IMg_upload{
+    display: flex;
+    justify-content: center;
+}
+.Img_preview_Music{
+    width: 73px;
+    height: 73px;
+     border-radius: 50%;
+     justify-content: center;
+}
+.Audio_preview_Music{
+    margin-bottom: 5px;
+}
+.center_IMg_upload{
+margin-top: 10px;
+margin-bottom: 10px;
 }

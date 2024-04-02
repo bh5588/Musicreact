@@ -9,6 +9,7 @@ const path = require('path');
 const fs = require('fs');
 
 
+
 const app = express();
 const port = 3030;
 
@@ -310,6 +311,27 @@ app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
 });
 
 
+
+app.post('/songsupload', (req, res) => {
+  const { songid, songname, songdescription, songimage, songpreview, songorginal, songlicence, songprice } = req.body;
+
+  const sql = 'INSERT INTO musicuploadsongs (songid, songname, songdescription, songimage, songpreview, songorginal, songlicence, songprice) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+  const musicupvalues = [songid, songname, songdescription, songimage, songpreview, songorginal, songlicence, songprice];
+
+  // Execute the query
+  db.query(sql, musicupvalues, (err, result) => {
+    if (err) {
+      console.error('Error inserting song into database:', err);
+      console.log(result);
+      res.status(500).json({ error: 'An error occurred while uploading the song' });
+      return;
+    }
+
+    console.log('Song uploaded successfully');
+    console.log(musicupvalues);
+    res.status(200).json({ message: 'Song uploaded successfully' });
+  });
+});
 
 
 // Server Setup
