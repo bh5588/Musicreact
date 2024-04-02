@@ -48,6 +48,10 @@ const Navbar = (  ) => {
     history.push('/Login');
     handleCloseMenu();
   };
+  const handlemusicupload = () => {
+    history.push('/Musicupload');
+    handleCloseMenu();
+  }
 
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -126,8 +130,7 @@ const Navbar = (  ) => {
 
                   <>
                   <div className='File_Upload'>
-                      <button className='BTN_Upload'> <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
-                      
+                      <button className='BTN_Upload' onClick={handlemusicupload} > <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
                   </div>
                   </>
                 ):(
@@ -224,7 +227,7 @@ const Navbar = (  ) => {
                     {isLoggedIn ?  (
                   
                     <div className='File_Upload'>
-                      <button className='BTN_Upload_Max' onClick ={handleCloseMenu}> <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                      <button className='BTN_Upload_Max'onClick ={() =>{ handleCloseMenu(); handlemusicupload();  }} > <i id="Fa-Upload" class="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
                      
                     </div>
             

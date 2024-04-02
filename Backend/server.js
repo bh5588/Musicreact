@@ -59,13 +59,14 @@ db.connect((err) => {
 
 
 
-
-// USAGE : To signup  a new user details
-// URL :   http://localhost:3030/signup
-// Method : post
-// Fields : name, userid, email, password, randomKey, tokenkey
-//  tokenkey is to find the user 
-//Signup is the endpoint
+/*
+USAGE : To signup  a new user details
+URL :   http://localhost:3030/signup
+Method : post
+Fields : name, userid, email, password, randomKey, tokenkey
+ tokenkey is to find the user 
+Signup is the endpoint
+*/
 app.post('/signup', (req, res) => {
   const { name, userid, email, password, randomKey, tokenkey } = req.body;
 
@@ -121,12 +122,13 @@ app.post('/signup', (req, res) => {
 
 
 
-
-// USAGE : To login a user 
-// URL :   http://localhost:3030/login
-// Method : post
-// Fields : login, password
-// login End point url
+/*
+USAGE : To login a user 
+URL :   http://localhost:3030/login
+Method : post
+Fields : login, password
+login End point url
+*/
 app.post('/login', (req, res) => {
   const { login, password } = req.body;
   const sql = 'SELECT * FROM signup WHERE (userid = ? OR email = ?) AND password = ?';
@@ -164,11 +166,12 @@ app.post('/login', (req, res) => {
 
 
 
-
-// USAGE : to get the user details
-// URL :   http://localhost:3030/navbar
-// Method : get
-// Navbar Endpoint
+/*
+USAGE : to get the user details
+URL :   http://localhost:3030/navbar
+Method : get
+Navbar Endpoint
+*/
 app.get('/navbar', (req, res) => {
   // Check if user is logged in
   if (req.session.isLoggedIn) {
@@ -185,13 +188,14 @@ app.get('/navbar', (req, res) => {
 
 
 
-
-// USAGE : To user-profile a new user details 
-// URL :   http://localhost:3030/user-profile
-// Method : get
-// Fields : here it will check the login user email id and  show his profile information
-//  tokenkey is to find the user 
-// user-profile end point url
+/*
+USAGE : To user-profile a new user details 
+URL :   http://localhost:3030/user-profile
+Method : get
+Fields : here it will check the login user email id and  show his profile information
+ tokenkey is to find the user 
+user-profile end point url
+*/
 app.get('/user-profile', (req, res) => {
   const userEmail = req.session.user && req.session.user.email;
   if (!userEmail) {
@@ -222,12 +226,12 @@ app.get('/user-profile', (req, res) => {
 
 
 
-
-
-// USAGE : it will destroy the server 
-// URL :   http://localhost:3030/logout
-// Method : get
-// Logout Endpoint
+/*
+USAGE : it will destroy the server 
+URL :   http://localhost:3030/logout
+Method : get
+Logout Endpoint
+*/
 app.post('/logout', (req, res) => {
   // Clear session data
   req.session.destroy((err) => {
@@ -247,12 +251,13 @@ app.post('/logout', (req, res) => {
 
 
 
-
-// USAGE : here it will save the data after login  
-// URL :   http://localhost:3030/updateprofile
-// Method : post
-// Fields : here it will save the data as per email and userid 
-// Update profile endpoint
+/*
+USAGE : here it will save the data after login  
+URL :   http://localhost:3030/updateprofile
+Method : post
+Fields : here it will save the data as per email and userid 
+Update profile endpoint
+*/
 app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
   const newImage = req.file;
   const { name, userid, email, phoneno, dob, gender } = req.body;
