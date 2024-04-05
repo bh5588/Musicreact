@@ -311,6 +311,8 @@ app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
 });
 
 
+
+
 // Define multer storage configuration
 
 const istorage = multer.diskStorage({
@@ -319,9 +321,7 @@ const istorage = multer.diskStorage({
     if (file.fieldname === 'songimage') {
       cb(null, 'song/images');
     } else if (file.fieldname === 'songpreview') {
-      cb(null, 'song/preview');
-    }else if (file.fieldname === 'songoriginal') {
-      cb(null, 'song/original');
+      cb(null, 'preview/songs');
     } else {
       cb(new Error('Invalid fieldname'));
     }
@@ -334,35 +334,24 @@ const istorage = multer.diskStorage({
 const imgpreviewupload = multer({storage: istorage});
 
 // POST endpoint for uploading songs
-app.post('/songs', imgpreviewupload.fields([{ name: 'songimage' }, { name: 'songpreview' },{name: 'songoriginal'} ]), (req, res) => {
+app.post('/songs', imgpreviewupload.fields([{ name: 'songimage' }, { name: 'songpreview' }]), (req, res) => {
   // Extract other song details from req.body
   const { songid, songname, songdescription, songlicence, songprice } = req.body;
 
   // Access uploaded files using req.files
   let songimage = '';
   let songpreview = '';
-  let songoriginal =' ';
 
   if (req.files['songimage']) {
-    // Extract file name from the path
-    const imageName = req.files['songimage'][0].filename;
-    songimage = imageName; // Save only the file name
+    songimage = req.files['songimage'][0].path;
   }
   if (req.files['songpreview']) {
-    // Extract file name from the path
-    const previewName = req.files['songpreview'][0].filename;
-    songpreview = previewName; // Save only the file name
-  }
-  if (req.files['songoriginal']) {
-    // Extract file name from the path
-    const songOriginalName = req.files['songoriginal'][0].filename;
-  //  console.log('Song Original Filename:', songOriginalName);
-    songoriginal = songOriginalName; // Save only the file name
+    songpreview = req.files['songpreview'][0].path;
   }
 
   // Insert song details into MySQL database
-  const sql = 'INSERT INTO musicuploadsongs (songid, songname, songdescription, songlicence, songprice, songimage, songpreview, songoriginal) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-  const values = [songid, songname, songdescription, songlicence, songprice, songimage, songpreview, songoriginal];
+  const sql = 'INSERT INTO musicuploadsongs (songid, songname, songdescription, songlicence, songprice, songimage, songpreview) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  const values = [songid, songname, songdescription, songlicence, songprice, songimage, songpreview];
 
   db.query(sql, values, (err, result) => {
     if (err) {
@@ -375,10 +364,6 @@ app.post('/songs', imgpreviewupload.fields([{ name: 'songimage' }, { name: 'song
     res.status(200).json({ message: 'Song uploaded successfully' });
   });
 });
-
-
-
-  
 
 // Server Setup
 app.get('/', (req, res) => {

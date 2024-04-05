@@ -36,7 +36,7 @@ div.Music_Title {
     box-shadow: 0px 0px 4px var(--000);
     transition: all 0.3s ease-in-out;
     animation: musicUploadfade 2s forwards ease-in-out;
-    transform: translate(27%, 8%);
+    transform: translate(27%, 4%);
 }
 
 @keyframes musicUploadfade {
@@ -52,25 +52,25 @@ div.Music_Title {
 @media screen and (max-width:1200px) {
     div.Music_Title{
         margin-bottom: 100px;
-        transform: translate(25%,8%);
+        transform: translate(25%,4%);
     }
 }
 @media screen and (max-width:600px) {
     div.Music_Title{
         width: 80%;
-        transform: translate(12%,8%);
+        transform: translate(12%,4%);
     }
 }
 @media screen and (max-width:500px) {
     div.Music_Title{
         width: 90%;
-        transform: translate(8%,8%);
+        transform: translate(8%,4%);
     }
 }
 @media screen and (max-width:430px) {
     div.Music_Title{
         width: 95%;
-        transform: translate(2.5%,8%);
+        transform: translate(2.5%,4%);
     }
 }
 
@@ -273,7 +273,7 @@ button.Music_Upload_Data:hover{
     transform: scale(0.95);
     box-shadow: 0px 0px 4px var(--000);
 }
-@media screen and (max-width:1200px) {
+@media screen and (max-width:1342px) {
     span.Br_Line_up{
         display: none;
     }

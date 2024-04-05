@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import { useHistory } from "react-router-dom";
 import './Musicupload.css'
 import axios from 'axios';
@@ -6,35 +6,40 @@ import axios from 'axios';
 const Musicupload = () => {
    let history = useHistory();
 
-   const [selectedImage, setSelectedImage] = useState(null);
-    const [errorMessageimage, setErrorMessageimage] = useState('');
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        handleFile(file);
-    };
+ useEffect(() => {
+  const fetchNavbarData = () => {
+    axios.get('/navbar')
+      .then(response => {
+        const { isLoggedIn, user } = response.data;
+        setIsLoggedIn(isLoggedIn);
+        setUser(user);
+      })
+      .catch(error => console.error('Error fetching navbar data:', error));
+  };
 
-    const handleFile = (file) => {
-        if (file.type.split('/')[0] !== 'image') {
-            setErrorMessageimage('Please select an image file.');
-            return;
-        }
+  fetchNavbarData(); 
 
-        const reader = new FileReader();
-        reader.onload = () => {
-            setSelectedImage(reader.result);
-            setErrorMessage('');
-        };
-        reader.readAsDataURL(file);
-    };
+  return 
+}, []);
 
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
+   const [songselectedImage, setSongSelectedImage] = useState(null);
+
+   const handleSongImageChange = (e) => {
+      const file = e.target.files[0];
+     if (file) {
+       const reader = new FileReader();
+       reader.onload = () => {
+        setSongSelectedImage(reader.result);
+       };
+       reader.readAsDataURL(file);
+     }
+   };
 
 
-    // preview of the song in 10s to 20s
-    const [selectedSong, setSelectedSong] = useState(null);
+   const [selectedSong, setSelectedSong] = useState(null);
     const [songDuration, setSongDuration] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -60,92 +65,73 @@ const Musicupload = () => {
         };
     };
 
-// Orginal song 
+   const [musicvalues, setMusicvalues] = useState({
+    songid: '',
+    songname: '',
+    songdescription:'',
+    songlicence:' ',
+    songprice: '',
+    songimage:'',
+    songpreview:'',
+    songorginal:''
+  });
+  
+  const handleMusic = (event) => {
+    setMusicvalues({ ...musicvalues, [event.target.name]: event.target.value });
+  };
 
-const [selectedFile, setSelectedFile] = useState(null);
-    const [previewContent, setPreviewContent] = useState(null);
-    const [errorMessageorginal, setErrorMessageOrginal] = useState('');
 
-    const handleOrginalFile = (e) => {
-        const file = e.target.files[0];
-        const fileSize = file.size / 1024 / 1024; // Convert to MB
-
-        // Check if file size exceeds 50MB
-        if (fileSize > 50) {
-            setErrorMessage('File size exceeds 50MB.');
-            return;
-        }
-
-        // Check if the file type is zip or rar
-        if (!['application/zip', 'application/x-rar-compressed'].includes(file.type)) {
-          setErrorMessageOrginal('Please select a zip or rar file.');
-            return;
-        }
-
-        // Read the file for preview
-        const reader = new FileReader();
-        reader.onload = () => {
-            setPreviewContent(reader.result);
-            setErrorMessage('');
-        };
-        reader.readAsText(file);
-
-        setSelectedFile(file);
-    };
-
-    const [musicvalues, setMusicvalues] = useState({
-      songid: '',
-      songname: '',
-      songdescription: '',
-      songimage: '',
-      songpreview:'',
-      songorginal:'',
-      songlicence:'',
-      songprice:''
-    });
     
-    const handleMusic = (event) => {
-      setMusicvalues({ ...musicvalues, [event.target.name]: event.target.value });
-    };
     
-    const handlemusicuploadsubmit = (event) => {
-      event.preventDefault();
+  const handlemusicuploadsubmit = (event) => {
+    event.preventDefault();
+  
+    const formData = new FormData();
+    formData.append('songid',  user.id);
+  formData.append('songname', musicvalues.songname);
+  formData.append('songdescription', musicvalues.songdescription);
+  formData.append('songlicence', musicvalues.songlicence);
+  formData.append('songprice', musicvalues.songprice);
+  //formData.append('songpreview', musicvalues.songpreview);
+  //formData.append('songorginal', musicvalues.songorginal);
+
+    const songimagefile = event.target.elements.songimage.files[0]; 
+    const songpreviewfile = event.target.elements.songpreview.files[0];
+    const songoriginalfile = event.target.elements.songoriginal.files[0];
+
+    //const file = event.target.elements.songorginal.files[0];
+
+
     
-      // Generate a random song ID
-      function generateRandomString(length) {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789';
-        let songid = '';
+    formData.append('songimage', songimagefile);
+    formData.append('songpreview', songpreviewfile);
+    formData.append('songoriginal', songoriginalfile);
     
-        for (let i = 0; i < length; i++) {
-          const randomIndex = Math.floor(Math.random() * characters.length);
-          songid += characters.charAt(randomIndex);
-        }
-        
-        return songid;
-      }
-      
-      const songid = generateRandomString(21);
-     
-      // Make a POST request to the server
-      axios.post('/songsupload', {
-        songid: songid,
-        songname: musicvalues.songname,
-        songdescription: musicvalues.songdescription,
-        songimage: musicvalues.songimage,
-        songpreview: musicvalues.songpreview,
-        songorginal: musicvalues.songorginal,
-        songlicence: musicvalues.songlicence,
-        songprice: musicvalues.songprice
-      })
+    axios.post('/songs', formData)
       .then((response) => {
-        console.log('Server response:', response.data);
         // Handle success response, such as showing a success message or redirecting to another page
+        console.log('Server response:', response.data);
+    
+        // Reset the selected image state after successful submission
+        setSongSelectedImage(null);
       })
       .catch((error) => {
         console.error('Error uploading song:', error);
         // Handle error, such as displaying an error message to the user
       });
-    };
+    
+
+
+
+
+
+
+
+
+  };
+  
+  
+  
     
 
     
@@ -155,16 +141,16 @@ const [selectedFile, setSelectedFile] = useState(null);
      <div className='Music_Upload'>
     
     <title>Music Upload</title>
-        <div className='Music_values'>
+       <div className='Music_values'>
        
-           <div className='Music_Title'>
+       {isLoggedIn ?(<><div className='Music_Title'>
             <div className='Close_Btn_music'>
                   <button  onClick={() => history.goBack()} className='Close_Button_Music' >X</button>
                </div>
            <form method='post' onSubmit={handlemusicuploadsubmit} className='Form_Music_Up' >
               <div className='H_Music'>
                   <h1 className='Music_Name_Upload_q'>
-                     Music Upload
+                     Music Upload 
                   </h1>
               </div>
               <div className='Container_Music'>
@@ -184,17 +170,14 @@ const [selectedFile, setSelectedFile] = useState(null);
                                   <p className='Note_Music_small'>Note: <small className='Music_Note_Up' >Not required, but if there, please upload.</small></p>
                                 </div>
 
-                          {selectedImage ? (
+                          {songselectedImage && (
                        <>
                         <div className='center_IMg_upload'>
-                          <img src={selectedImage} alt="Selected" className='Img_preview_Music'/>
+                          <img src={songselectedImage} alt="Selected" className='Img_preview_Music'/>
                         </div>
                        </>
-                      ) : (
-                        <></>
-                      )}
-                            <input type='file' title='preview file'  name="songimage"   onChange = { (event) => { handleImageChange(event); handleMusic(event); } }   value={musicvalues.songimage}  accept="image/*" />
-                            {errorMessage && <p>{errorMessageimage}</p>}
+                      )} 
+                            <input type='file' title='preview file' name="songimage" onChange={handleSongImageChange} accept=".jpg, .jpeg, .png" />
                           </div>
                           <div className='musicupload_Inputs'>
                             <p className='Music_Upolad_Perview_P' >Song Perview</p>
@@ -212,32 +195,25 @@ const [selectedFile, setSelectedFile] = useState(null);
                                     )}
                                     {errorMessage && <p>{errorMessage}</p>}
                             </div>
-                            <input type='file' title='preview file' placeholder='Preview File' name="songpreview"  accept="audio/*"  onChange = { (event) => { handleSongChange(event); handleMusic(event); } } value={musicvalues.songpreview}  />
+                            <input type="file" title='preview file' name="songpreview" onChange={handleSongChange} accept=".mp3" />
                           </div>
                           <div className='musicupload_Inputs'>
                             <p className='Music_Upolad_Perview_P' >Orginal Song</p>
                               <div className='Small_Note_Perview'>
                                   <p className='Note_Music_small'>Note: <small className='Music_Note_Up' >Upload here Orginal song here</small></p>
                               </div>
-                              {previewContent && (
-                                    <div>
-                                        <p>Preview Content:</p>
-                                        <pre>{previewContent}</pre>
-                                    </div>
-                                )}
-                             <input type='file' title='preview file' placeholder='Preview File' name="songorginal" onChange = { (event) => { handleOrginalFile(event); handleMusic(event); } } value={musicvalues.songorginal} accept=".zip,.rar"  />
-                            {errorMessage && <p>{errorMessageorginal}</p>}
-                          </div>
+                             <input type='file' title='preview file' placeholder='Preview File' name="songoriginal"  accept=".zip,.rar"  />
+                          </div> 
                           <div className='musicupload_Inputs'>
                             <p className='Music_Upolad_Perview_P'>Song Licence</p>
-                            <select className='Song_Type' name='songlicence' required defaultValue='0' onChange={handleMusic} value={musicvalues.songlicence}  >
-                                  <option value='0' disabled selected >Please choose an option</option>
-                                  <option value='Standard'>Standard</option>
+                            <select className='Song_Type' name='songlicence' required onChange={handleMusic} >
+                                  <option value='Please' disabled selected >Please choose an option</option>
+                                  <option value='Standard'  >Standard</option>
                                   <option value='professional'>professional</option>
                                   <option value='exclusive'>exclusive</option>
                             </select>
                           </div>
-                          <div className='Price_Song_music'>
+                          <div className='musicupload_Inputs'>
                           <p className='Note_Music_small'>Note: <small className='Music_Note_Up' >Here, the song price will be calculated in USD(DOLLAR). </small></p>
                               <div className='musicupload_Input' >
                                 <input type='number'  name="songprice"  required onChange={handleMusic} value={musicvalues.songprice} />
@@ -253,9 +229,14 @@ const [selectedFile, setSelectedFile] = useState(null);
               </div>
 
            </form>
+           
 
            </div>
+           </>):(<>
+        Go To Login Page 
+        </>) }
         </div>
+       
      </div>
         
      </>
