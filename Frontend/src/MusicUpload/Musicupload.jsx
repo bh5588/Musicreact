@@ -110,10 +110,11 @@ const Musicupload = () => {
     axios.post('/songs', formData)
       .then((response) => {
         // Handle success response, such as showing a success message or redirecting to another page
-        console.log('Server response:', response.data);
+       // console.log('Server response:', response.data);
     
         // Reset the selected image state after successful submission
-        setSongSelectedImage(null);
+        //setSongSelectedImage(null);
+
       })
       .catch((error) => {
         console.error('Error uploading song:', error);
@@ -220,8 +221,10 @@ const Musicupload = () => {
                                 <label className='Music_Upolad_L' >Song Price</label>
                               </div>
                           </div>
-                           <div className='Submit_Btn_Music'>
-                              <button className='Music_Upload_Data'>Upload</button>
+                          <div className='musicupload_Inputs'>
+                              <div className='Submit_Btn_Music'>
+                                  <button className='Music_Upload_Data'>Upload</button>
+                              </div>
                            </div>
 
                      </div>
