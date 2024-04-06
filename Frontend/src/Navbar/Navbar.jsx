@@ -162,7 +162,7 @@ const Navbar = (  ) => {
                   <div className='Music_Explore'>
                     
                     <div className='Down_Home'>
-                      <Link className="Home_name" to="/Profile">
+                      <Link className="Home_name" to="/uploadfiles">
                         <i id="Fa_Home_B" className="fa fa-music" aria-hidden="true">
                           </i> upload Files</Link>
                     </div>

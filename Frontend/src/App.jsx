@@ -9,6 +9,7 @@ import About from './Components/About';
 import Model from './Components/Model';
 import Musicupload from './MusicUpload/Musicupload'
 import profile from './Userprofile/profile';
+import uploadfiles from './MusicUpload/uploadfiles';
 
 const App = () => {
 
@@ -17,7 +18,7 @@ const App = () => {
       <Router>
       <Navbar />
         <Switch>
-          
+        <Route path="/uploadfiles" component={uploadfiles} />  
         <Route path="/profile" component={profile} />
         <Route path="/Musicupload" component={Musicupload} />
           <Route path="/Model" component={Model} />
