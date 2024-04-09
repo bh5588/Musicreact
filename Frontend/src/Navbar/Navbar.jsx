@@ -71,7 +71,7 @@ const Navbar = (  ) => {
 
   fetchNavbarData(); 
 
-  const intervalId = setInterval(fetchNavbarData, 2500); // Example: fetch every 60 seconds
+  const intervalId = setInterval(fetchNavbarData, 2500); 
 
   return () => clearInterval(intervalId);
 }, []);
@@ -84,6 +84,7 @@ const Navbar = (  ) => {
       .then(response => {
         setIsLoggedIn(false);
         setUser(null);
+         sessionStorage.removeItem('token');
       })
       .catch(error => console.error('Error logging out:', error));
   };
@@ -161,13 +162,12 @@ const Navbar = (  ) => {
               <div className='Details_User'>
                   <div className='Music_Explore'>
                     
-                    <div className='Down_Home'>
-                      <Link className="Home_name" to="/uploadfiles">
+                    <div className='Down_Upload'>
+                      <Link className="Upload_Files" to="/uploadfiles">
                         <i id="Fa_Home_B" className="fa fa-music" aria-hidden="true">
                           </i> upload Files</Link>
                     </div>
-                <i class="fa-solid fa-list-music"></i>
-                    <i class="fas fa-list-music"></i>
+                
                   </div>
               </div>
             </>):""}
@@ -265,7 +265,7 @@ const Navbar = (  ) => {
                        </div>
                     <div className='Down_Home'>
                         <Link  className="Home_name_Link" to="/Login" onClick={handleCloseMenu} >
-                        <i id="Fa_Home_B" classNames="fa fa-user" aria-hidden="true"></i> Login</Link>
+                        <i id="Fa_Home_B" className="fa fa-user" aria-hidden="true"></i> Login</Link>
                     </div>
                        </>
                     )}

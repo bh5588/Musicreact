@@ -114,6 +114,8 @@ const Musicupload = () => {
     
         // Reset the selected image state after successful submission
         //setSongSelectedImage(null);
+        history.push('/Uploadfiles');
+        
 
       })
       .catch((error) => {
@@ -144,7 +146,7 @@ const Musicupload = () => {
     <title>Music Upload</title>
        <div className='Music_values'>
        
-       {isLoggedIn ?(<><div className='Music_Title'>
+       {isLoggedIn &&(<><div className='Music_Title'>
             <div className='Close_Btn_music'>
                   <button  onClick={() => history.goBack()} className='Close_Button_Music' >X</button>
                </div>
@@ -235,9 +237,7 @@ const Musicupload = () => {
            
 
            </div>
-           </>):(<>
-        Go To Login Page 
-        </>) }
+           </>)}
         </div>
        
      </div>

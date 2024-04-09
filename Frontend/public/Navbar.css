@@ -184,23 +184,23 @@ nav.Music_Explore {
     transform: translateX(-50%);
     transition: 0.3s all ease-in-out;
   }
-  .Music_tittle:hover .Music_Home::after {
+  .Music_Home:hover::after {
     width: 150px;
   }
   
-  div.Down_Home {
+  div.Down_Home,div.Down_Upload {
     margin-top: 15px;
     font-size: 20px;
     margin-bottom: 15px;
   }
   @media screen and (max-width:940px) {
-    div.Down_Home{
+    div.Down_Home,div.Down_Upload{
       margin-top: 10px;
       margin-bottom: 10px;
     }
   }
   
-  .Home_name,.Home_name_Link {
+  .Home_name,.Home_name_Link,.Upload_Files {
     text-decoration: none;
     position: relative;
     color: var(--373433);
@@ -217,7 +217,8 @@ nav.Music_Explore {
     color: var(--000);
     padding-left: 10px;
   }
-  .Home_name::after {
+  .Home_name::after,
+  .Upload_Files::after {
     content: '';
     width: 0px;
     height: 3px;
@@ -232,12 +233,17 @@ nav.Music_Explore {
   .Home_name:hover::after {
     width: 90px;
   }  
+  .Upload_Files:hover::after{
+    width: 165px;
+  }
   .fa-home {
     margin-right: -4px;
   }
   
+  
   .Home_name:hover #Fa_Home_B,
-  .Home_name_Link:hover #Fa_Home_B{
+  .Home_name_Link:hover #Fa_Home_B,
+  .Upload_Files:hover #Fa_Home_B {
     animation: bounce 1.5s linear;
   }
   

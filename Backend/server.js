@@ -27,17 +27,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-const storage = multer.diskStorage({
-  destination: (req, file ,cb ) =>{
-     cb(null,'public/userimages')
-  },
-  filename:(req, file, cd) => {
-    cd(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
-  }
-});
-const  updateprofile = multer({
-  storage: storage
-});
+
 
 // Create MySQL connection
 const db = mysql.createConnection({
@@ -132,17 +122,14 @@ login End point url
 */
 app.post('/login', (req, res) => {
   const { login, password } = req.body;
-  const sql = 'SELECT * FROM signup WHERE (userid = ? OR email = ?) AND password = ?';
-  db.query(sql, [login, login, password], (err, result) => {
+  const sql = 'SELECT * FROM signup WHERE (userid = ? OR email = ?)';
+  db.query(sql, [login, login], (err, result) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
       return res.status(500).json({ error: 'An error occurred while logging in' });
     }
 
     if (result.length === 0) {
-       console.log(err);
-       console.log(result);
-       console.log(sql);
       // No user found with the provided userid or email
       return res.status(401).json({ error: 'Userid or email wrong' });
     }
@@ -159,11 +146,16 @@ app.post('/login', (req, res) => {
     req.session.user = user;
 
     // Login successful
-    console.log('Values:', [login, password]);
     console.log('User logged in successfully');
-    return res.status(200).json({ message: 'User logged in successfully', isLoggedIn: true, user });
+    console.log(user.id);
+   // console.log('Session data set:', req.session);
+    return res.status(200).json({ 
+      message: 'User logged in successfully', 
+      isLoggedIn: true, 
+      user });
   });
 });
+
 
 
 
@@ -177,12 +169,15 @@ app.get('/navbar', (req, res) => {
   // Check if user is logged in
   if (req.session.isLoggedIn) {
     // User is logged in, send relevant data from session
+   // console.log('User ID:', req.session.user.id);
     res.json({ isLoggedIn: true, user: req.session.user });
   } else {
     // User is not logged in
     res.json({ isLoggedIn: false });
   }
 });
+
+
 
 
 
@@ -238,10 +233,14 @@ app.post('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.error('Error destroying session:', err);
+     // sessionStorage.setItem('token', JSON.stringify(response.data.user.tokenkey));
+    console.log(req.session);
       return res.status(500).json({ error: 'An error occurred during logout' });
     }
     // Session destroyed successfully
+   // sessionStorage.setItem('token', JSON.stringify(response.data.user.tokenkey));
     console.log('User logged out successfully');
+   // console.log(req.session);
     return res.status(200).json({Logout:"Successfully", success: true });
   });
 });
@@ -259,6 +258,17 @@ Method : post
 Fields : here it will save the data as per email and userid 
 Update profile endpoint
 */
+const storage = multer.diskStorage({
+  destination: (req, file ,cb ) =>{
+     cb(null,'public/userimages')
+  },
+  filename:(req, file, cd) => {
+    cd(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
+  }
+});
+const  updateprofile = multer({
+  storage: storage
+});
 app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
   const newImage = req.file;
   const { name, userid, email, phoneno, dob, gender } = req.body;
@@ -311,17 +321,27 @@ app.post('/updateprofile', updateprofile.single('image'), (req, res) => {
 });
 
 
-// Define multer storage configuration
 
+
+
+
+/*
+USAGE : To store music uploads of a user 
+URL :   http://localhost:3030/songs
+Method : post
+Fields : songid, songname, songdescription, songlicence, songprice, songimage, songpreview, songoriginal
+here image is optinal
+login End point url
+*/
 const istorage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Define destinations for image and audio files
     if (file.fieldname === 'songimage') {
-      cb(null, 'song/images');
+      cb(null, 'public/song/images');
     } else if (file.fieldname === 'songpreview') {
-      cb(null, 'song/preview');
+      cb(null, 'public/song/preview');
     }else if (file.fieldname === 'songoriginal') {
-      cb(null, 'song/original');
+      cb(null, 'public/song/original');
     } else {
       cb(new Error('Invalid fieldname'));
     }
@@ -333,7 +353,6 @@ const istorage = multer.diskStorage({
 
 const imgpreviewupload = multer({storage: istorage});
 
-// POST endpoint for uploading songs
 app.post('/songs', imgpreviewupload.fields([{ name: 'songimage' }, { name: 'songpreview' },{name: 'songoriginal'} ]), (req, res) => {
   // Extract other song details from req.body
   const { songid, songname, songdescription, songlicence, songprice } = req.body;
@@ -376,9 +395,35 @@ app.post('/songs', imgpreviewupload.fields([{ name: 'songimage' }, { name: 'song
   });
 });
 
+app.get('/songsfiles', (req, res) => {
+  const userId = req.session.user.id; // Assuming the user ID is stored in req.user after authentication
+
+  // SQL query to fetch songs associated with the logged-in user
+  const sql = `
+    SELECT *
+    FROM musicuploadsongs
+    WHERE songid = ?
+  `;
+
+  // Execute the SQL query
+  db.query(sql, [userId], (err, result) => {
+    if (err) {
+    //  console.log(sql);
+    //  console.log(userId);
+      //console.log(result);
+      console.error('Error retrieving songs from database:', err);
+      return res.status(500).json({ error: 'An error occurred while retrieving songs' });
+    }
+  //  console.log(sql);
+   // console.log(userId);
+    //console.log(result);
+    res.status(200).json(result);
+  });
+});
 
 
-  
+
+
 
 // Server Setup
 app.get('/', (req, res) => {

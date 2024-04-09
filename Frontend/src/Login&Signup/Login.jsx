@@ -18,6 +18,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+ // const [user, setUser] = useState(null);
   
   const handleLoginsub = (event) => {
     event.preventDefault();
@@ -26,18 +27,30 @@ const Login = () => {
       login: login,
       password: password
     })
-      .then(res => {
-        setTimeout(() => {
-          setIsLoading(false);
-          history.push('/About');
-        }, 2000);
+    .then(response => {
+      setTimeout(() => {
+        setIsLoading(false);
+        history.push('/About');
+      }, 2000);
+     // console.log('Response:', response);
+      // Check if response contains data
+      if (response && response.data) {
+        // Access data and perform actions
+      //  setUser(response.data);
+        sessionStorage.setItem('token', JSON.stringify(response.data.user.tokenkey));
+       // localStorage.setItem('user', JSON.stringify(response.data)); // Convert object to string before storing in localStorage
+        //console.log('User data:', response.data);
+      } else {
+        // Handle case where response data is missing
+        console.error('Response data is missing');
+      }
+    })
+    .catch(error => {
+      // Handle errors
+      console.error('Error:', error);
+    });
   
-      })
-      .catch(err => {
-        setError(err.response.data.error);
-        setIsLoading(false); // Corrected typo here
-      });
-  };
+  }
   
 
 
