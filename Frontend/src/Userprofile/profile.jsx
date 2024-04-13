@@ -98,7 +98,7 @@ const profile = () => {
       <>
       <title>User Profile</title>
       <div className='Dark_btn'>
-          <Link className="Back_to-Home" to='/Home'> <i id="Fa_Arrow_Left" class="fa fa-arrow-left" aria-hidden="true"></i> Back to home</Link>
+          <Link className="Back_to-Home" to='/Home'> <i id="Fa_Arrow_Left" className="fa fa-arrow-left" aria-hidden="true"></i> Back to home</Link>
          <button onClick={toggleDarkMode}  className="BUTNS Button_BTN  Byu" title="Change To Dark Mode"></button>
       </div>
        <div className='User_profile_M'>

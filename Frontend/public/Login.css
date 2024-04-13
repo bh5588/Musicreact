@@ -100,7 +100,7 @@ div.Login_From_Create{
     width: 40%;
   }
 }
-@media screen and (max-width:1135px) {
+@media screen and (max-width:1145px) {
   div.Login_From_Create{
     width: 45%;
   }

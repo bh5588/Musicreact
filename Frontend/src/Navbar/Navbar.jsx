@@ -90,11 +90,30 @@ const Navbar = (  ) => {
   };
 
   const [isVisible, setIsVisible] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const toggleVisibility = () => {
-  
     setIsVisible(!isVisible);
+    setIsProfileOpen(!isProfileOpen);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isProfileOpen && !event.target.closest('.Head_Profile')) {
+        setIsProfileOpen(false);
+      }
+    };
+
+   // document.addEventListener('click', handleClickOutside);
+
+  }, [isProfileOpen]);
+
+  useEffect(() => {
+    const musicExplore = document.querySelector('nav.Music_Explore');
+    if (musicExplore) {
+      musicExplore.style.zIndex = isProfileOpen ? 9999 : ''; 
+    }
+  }, [isProfileOpen]);
 
   const truncateName = (name, maxLength) => {
     if (name.length <= maxLength) {
@@ -110,6 +129,7 @@ const Navbar = (  ) => {
 
   return (
     <>
+    <div children="Parent_Music">
       <nav className='Music_Explore'>
         <div className='Music_Explore_logo-1'>
             <div className='Music_Explore_logo'>
@@ -175,7 +195,7 @@ const Navbar = (  ) => {
          
          <div className='Music_Disable_Search-1'>
           <div className='Music_Search'>
-                <form action="" class="search-bar" onSubmit={handleSearch} >
+                  <form action="" className="search-bar" onSubmit={handleSearch}>
                       <i id="Searchbar" className="fa fa-search" aria-hidden="true"></i>
                       <input  id="Search_Box-text" type="search" name="search" pattern=".*\S.*" required  autoComplete="off"   value={searchQuery} onChange={handleInputChange} />
                 </form>
@@ -188,17 +208,17 @@ const Navbar = (  ) => {
             
           <div className='Disable_Search-2'>
               <div className='Music_Search'>
-                  <form action="" class="search-bar" onSubmit={handleSearch} >
+                  <form action="" className="search-bar" onSubmit={handleSearch} >
                       <i id="Searchbar" className="fa fa-search" aria-hidden="true"></i>
                       <input id="Search_Box-texts" type="search" name="search" pattern=".*\S.*" required  autoComplete="off"   value={searchQuery} onChange={handleInputChange} />
                   </form>
               </div>
             </div>
 
-                <label for="menuTrigger" class="nav_ico" onClick={toggleMenu} >
-                    <i className={`fa ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
-                </label>
-                  <input id="menuTrigger" type="checkbox"  class="nav_I" />
+            <label htmlFor="menuTrigger" className="nav_ico" onClick={toggleMenu}>
+                <i className={`fa ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
+            </label>
+                  <input id="menuTrigger" type="checkbox"  className="nav_I" />
             <div className='Bars_Link_Music' style={{ display: isMenuOpen ? 'block' : 'none' }}>
                     <div className='Button_Dark_Mode'>
                         <button onClick={() => {toggleDarkMode(); handleCloseMenu(); }} id="Pos_Btn" className="BUTNS Button_BTN" title="Change To Dark Mode"></button>
@@ -283,7 +303,7 @@ const Navbar = (  ) => {
                           </h1> 
                      </div>
                      { isVisible && 
-                       <div className='Profle_Image_Content'>
+                        <div className='Profle_Image_Content'>
                          <div className='Profile_Img_Det'>
                             <div className='User_Name_Id'>
                               <p className='User_Name_D' title={user? user.userid: 'user' } > Hi {user? user.userid: 'user' } </p>
@@ -336,9 +356,9 @@ const Navbar = (  ) => {
             )}
           </div>
         </div>
-        
-      </nav>
 
+      </nav>
+    </div>
       {/* <img src='https://i.stack.imgur.com/jDGzD.png'/> */}
     </>
   );

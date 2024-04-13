@@ -42,6 +42,17 @@ const [songs, setSongs] = useState([]);
     fetchSongs();
   }, []); 
 
+
+  const [currentSongIndex, setCurrentSongIndex] = useState(null);
+
+  const handlePlayButtonClick = (index) => {
+      setCurrentSongIndex(index);
+      const audioElement = document.querySelector(`#audio_${index}`);
+      if (audioElement) {
+          audioElement.play();
+      }
+  };
+
   return (
     <>
        {isLoggedIn ?(<> <title>Upload Files | Music Explore </title>
@@ -50,10 +61,10 @@ const [songs, setSongs] = useState([]);
                 <div className='Upload_Title_Files'>
                     <div className='Upload_Text_Files'>
                           <div className='SongFiles'>
-                               <div className='SongFiles_Details'>
+                               <div  className='SongFiles_Details'>
                                    <div className='Songs_Details_Grid'>
 
-                                   {songs.map(song => (
+                                   {songs.map((song,index) => (
                                         <div  className='Details_Songs_Files' key={song.id}>
                                             <div className='Name_Songs_Details'>
                                                <div className='Name_Image_Details'>
@@ -73,24 +84,34 @@ const [songs, setSongs] = useState([]);
                                                         )}
                                                     </div>
                                                     <div className='Song_rem_Details'>
+                                                    <div key={index} className='Audio_Button'>
+                                                        <audio id={`audio_${index}`} className='Song_Audio_preview_Music' controls controlsList="nodownload">
+                                                            <source src={`song/preview/${song.songpreview}`} />
+                                                            Your browser does not support the audio element.
+                                                        </audio>
+                                                        <button className='BTN_Play' onClick={() => handlePlayButtonClick(index)}><i className="fa fa-play" aria-hidden="true"></i></button>
+                                                    </div>
 
+                                                       <div className='Song_Name_De'>
+                                                           <p className='Song_Name_S'>{song.songname}</p>
+                                                           <p className='Song_Des'>{song.songdescription}</p>
+                                                        </div>
                                                     </div>
                                                </div>
 
 
 
 
-                                            <p>Song Name: {song.songname}</p>
                                               </div>
                         
 
 
 
-
                                     
                                         </div>
-                                      ))}
 
+                                      
+                                      ))}
 
                                     </div>
                                 </div>
@@ -99,6 +120,21 @@ const [songs, setSongs] = useState([]);
                 </div>
             </div>
         </div>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        <img src='https://i.stack.imgur.com/jDGzD.png'/>
+        
        </>):(<></>)}
     </>
   )

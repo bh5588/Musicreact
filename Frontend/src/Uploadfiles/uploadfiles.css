@@ -7,6 +7,7 @@ body{
 div.Upload_User_Files{
     width: 100%;
     margin: auto;
+    margin-top: 00px;
 }
 div.Upload_Container_files{
     width: auto;
@@ -23,22 +24,24 @@ div.SongFiles_Details{
     margin: auto;
 }
 div.Songs_Details_Grid{
-    display: grid;
-    grid-template-columns: auto auto;
-    align-items: center;
-    grid-gap:20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -35px;
 }
 div.Details_Songs_Files{
-    width: 100%;
-    margin: auto;
+    width: 180px;
+    font-family: 'Poppins', sans-serif;
+    margin-right: 10px;
+    margin-left: 10px;
 }
-div.Name_Songs_Details {
-    width: 80%;
+div.Name_Songs_Details {    
+    width: 100%;
     margin: auto;
     border: 1px solid var(--ccc);
     padding: 10px 15px;
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
+    position: relative;
 }
 .Image_Song_details{
     width: 150px;
@@ -46,11 +49,15 @@ div.Name_Songs_Details {
     border-radius: 5px;
 }
 .Linear_G{
-    background-color: red;
+    background-color: #7ee8fa;
+    color: #651188;
+    border: 1px solid var(--ccc);
+    background-image: linear-gradient(45deg, #7ee8fa 25%, #80ff72 70% );
     width: 150px;
     height: 150px;
     border-radius: 5px;
     position: relative;
+    margin-bottom: 5px;
 }
 .Middle_Name{
     display: flex; 
@@ -63,3 +70,38 @@ div.Name_Songs_Details {
 .Name_Center{
     text-align: center;
 }
+.Song_Audio_preview_Music{
+    display: none;
+}
+div.Audio_Button{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: -5px;
+}
+button.BTN_Play{
+    position: absolute;
+    font-size: 25px;
+    padding-top: 5px;
+    padding-left: 8px;
+    padding-right: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid var(--ccc);
+    background-color: var(--000);
+    color: var(--fff);
+    transform: scale(0.95);
+    transition: all 0.3s ease-in-out;
+    z-index: 99;
+}
+@media screen and (max-width:940px) {
+    button.BTN_Play{
+        z-index: 999;
+    }
+}
+button.BTN_Play:hover,
+button.BTN_Play:focus{
+    transform: scale(1);
+    box-shadow: 0px 0px 8px var(--ccc);
+}
+
