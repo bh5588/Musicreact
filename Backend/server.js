@@ -337,11 +337,11 @@ const istorage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Define destinations for image and audio files
     if (file.fieldname === 'songimage') {
-      cb(null, 'public/song/images');
+      cb(null, 'public/songfilesupload/images');
     } else if (file.fieldname === 'songpreview') {
-      cb(null, 'public/song/preview');
+      cb(null, 'public/songfilesupload/preview');
     }else if (file.fieldname === 'songoriginal') {
-      cb(null, 'public/song/original');
+      cb(null, 'public/songfilesupload/original');
     } else {
       cb(new Error('Invalid fieldname'));
     }

@@ -12,7 +12,7 @@ div.Upload_User_Files{
 div.Upload_Container_files{
     width: auto;
     margin: auto;
-    margin-left: 26%;
+    margin-left: 24.5%;
     padding-top: 8.5%;
 }
 div.SongFiles{
@@ -69,6 +69,7 @@ div.Name_Songs_Details {
 }
 .Name_Center{
     text-align: center;
+    color: var(--000);
 }
 .Song_Audio_preview_Music{
     display: none;
@@ -92,16 +93,40 @@ button.BTN_Play{
     color: var(--fff);
     transform: scale(0.95);
     transition: all 0.3s ease-in-out;
-    z-index: 99;
-}
-@media screen and (max-width:940px) {
-    button.BTN_Play{
-        z-index: 999;
-    }
 }
 button.BTN_Play:hover,
 button.BTN_Play:focus{
     transform: scale(1);
     box-shadow: 0px 0px 8px var(--ccc);
 }
-
+div.Song_Name_De{
+    padding-top: 3px;
+    transition: all 0.3s ease-in-out;
+}
+p.Song_Name_S{
+    color: var(--000);
+    transition: all 0.3s ease-in-out;
+}
+p.Song_Des{
+    color: var(--000);
+    transition: all 0.3s ease-in-out;
+}
+div.Song_Player{
+    position: absolute;
+    background-color: var(--ccc);
+    width: 100%;
+    height: auto;
+    z-index: 999999;
+    bottom: 0;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 8px var(--box);
+}
+audio{
+    width: 700px;
+    height: 50px;
+}
+.Song_Audio_preview {
+   background-color: red;
+  }

@@ -35,12 +35,103 @@ body{
 body{
   background-color: var(--fgj);
 }
-.Parent_Music{
-width: 100%;
-
+div.Head_User_Music{
+  position: fixed;
+  width: 25%;
+  z-index: 999999;
 }
+div.Head_User_Details{
+  position: relative;
+  width: 100%;
+  background-color:var(--F5F5F5) ;
+  padding: 10px;
+  padding-left: 20px;
+  margin: 10px;
+  box-shadow: 1px 3px 10px var(--box);
+  padding-bottom: 30px;
+  animation: NavLeft 2s ease-in-out; 
+  transition: all 0.3s ease-in-out; 
+  border-radius: 10px;
+  z-index: 99999;
+}
+
+@keyframes NavLeft { 
+  0% { 
+    transform: translateX(-100%); 
+    opacity: 0; 
+  } 
+  100% { 
+    transform: translateX(0%); 
+    opacity: 1; 
+  } 
+ }
+div.Login_Upload_Files{
+  position: relative;
+  width: 100%;
+  background-color:var(--F5F5F5) ;
+  padding: 10px;
+  padding-left: 20px;
+  margin: 10px;
+  box-shadow: 1px 3px 10px var(--box);
+  padding-bottom: 30px;
+  animation: NavLeftdealy 2s forwards 1s ease-in-out; 
+  transition: all 0.3s ease-in-out; 
+  border-radius: 10px;
+  opacity: 0;
+  margin-top: 20px;
+  z-index: 99999;
+}
+@keyframes NavLeftdealy { 
+  0% { 
+    transform: translateX(-100%); 
+    opacity: 0; 
+  } 
+  100% { 
+    transform: translateX(0%); 
+    opacity: 1; 
+  } 
+ }
+ div.Search_Music_Ex {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0; 
+  display: flex;
+  justify-content: center;
+  margin: auto; 
+  margin-top: 10px;
+  z-index: 99999;
+}
+ div.Login_BTN_Music{
+  position: fixed;
+  top: 0;
+  right: 0; 
+  display: flex;
+  justify-content: center;
+  margin: auto; 
+  margin-top: 10px;
+  z-index: 999999;
+  margin-top: 15px;
+  z-index: 99999;
+  animation: RightSide 2s ease-in-out ;
+ }
+ @keyframes RightSide { 
+  0% { 
+    transform: translatex(100%); 
+    opacity: 0; 
+  } 
+  100% { 
+    transform: translatex(0%); 
+    opacity: 1; 
+  } 
+ }
+ @media screen and (max-width:1000px) {
+  div.MUsic_Header_Explore{
+    display: none;
+  }
+ }
 nav.Music_Explore {
-display: flex;
+  display: none;
 position: fixed;
 padding: 10px;
 margin-top: 10px;
@@ -48,8 +139,13 @@ transition: all 0.3s ease-in-out;
 grid-gap: 0;
 overflow: hidden;
 width: 100%;
+z-index: 99999;
 }
-
+@media screen and (max-width:1000px) {
+  nav.Music_Explore{
+    display: flex;
+  }
+}
 .Music_Explore_logo-1 {
 width: 26%;
 }
@@ -77,7 +173,7 @@ right: 0;
 justify-content: center;
 }
 
-@media screen and (max-width:940px){
+@media screen and (max-width:1000px){
   nav.Music_Explore{
     background-color: var(--fff);
     padding: 10px 15px;
@@ -91,44 +187,6 @@ div.Disable_Search-2{
   div.Disable_Search-2{
     display: none;
   }
-}
-div.Music_Explore_logo {
- background-color: var(--F5F5F5);
- width: 100%;
- padding: 10px 20px;
- border-radius: 10px;
- box-shadow: 1px 3px 10px var(--box);
- padding-bottom: 30px;
- animation: NavLeft 2s ease-in-out; 
- transition: all 0.3s ease-in-out; 
-} 
-@media screen and (max-width:1065px) {
-div.Music_Explore_logo{
-  width: 100%;
-}
-}
-@media screen and (max-width:980px) {
-div.Music_Explore_logo{
-  width: 100%;
-}
-}
-@media screen and (max-width:940px){
-div.Music_Explore_logo{
-  background-color: transparent;
-  width: auto;
-  box-shadow:none;
-  padding: 0px;
-}
-}
-@keyframes NavLeft { 
- 0% { 
-   transform: translateX(-100%); 
-   opacity: 0; 
- } 
- 100% { 
-   transform: translateX(0%); 
-   opacity: 1; 
- } 
 }
 div.Music_Explore_menu{
 animation: NavRight 2s ease-in-out; 
@@ -183,7 +241,12 @@ transition: all 0.3s ease-in-out;
   transition: 0.3s all ease-in-out;
 }
 .Music_Home:hover::after {
-  width: 150px;
+  width: 182px;
+}
+@media screen and (max-width: 1000px) {
+  .Music_Home:hover::after {
+    width: 138px;
+  }
 }
 
 div.Down_Home,div.Down_Upload {
@@ -191,7 +254,7 @@ div.Down_Home,div.Down_Upload {
   font-size: 20px;
   margin-bottom: 15px;
 }
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
   div.Down_Home,div.Down_Upload{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -340,7 +403,7 @@ font-size: 20px;
 margin-left: 10px;
 margin-right: 10px;
 }
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
 .Sign_up-Login{
   display: none !important;
 }
@@ -384,7 +447,7 @@ z-index: 99999;
 /* background-color: var(--fff); */
 }
 
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
 .Bars_Link_Music{
   display: block;
 }
@@ -397,7 +460,7 @@ display: none;
 display: none;
 }
 
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
 .nav_ico {
   display: block; 
   cursor: pointer;
@@ -448,7 +511,7 @@ transition: all 0.3s ease-in-out;
 }
 }
 
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
 div.Home_Search{
   display: block;
 }
@@ -477,7 +540,7 @@ transition: all 0.1s ease-in-out;
 .Button_Dark_Mode{
 display: none;
 }
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
 .Button_Dark_Mode{
   display: flex;
   text-align: right;
@@ -490,7 +553,7 @@ display: none;
 div.Home_Search{
 display: none;
 }
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
 div.Home_Search{
   display: block;
 } 
@@ -516,38 +579,6 @@ border-right: none;
 border-bottom: 2px solid var(--000);
 color: var(--000);
 }
-@media screen and (max-width:1250px) {
-#Search_Box-text,
-#Search_Box-texts{
-  margin-left: 50px;
-}
-}
-@media screen and (max-width:1200px) {
-#Search_Box-text,
-#Search_Box-texts{
-  margin-left: -145px;
-  margin-right: 20px;
-}
-}
-@media screen and (max-width:1050px){
-#Search_Box-text,
-#Search_Box-texts{
-  margin-right: 60px;
-}
-}
-@media screen and (max-width:940px){
-#Search_Box-text,
-#Search_Box-texts{
-  margin-right: 30px;
-
-}
-}
-@media screen and (max-width:640px){
-#Search_Box-text,
-#Search_Box-texts{
-  margin-right: 30px;
-}
-}
 div.In_Side_Search{
 display: none;
 transition: all 0.3s ease-in-out;
@@ -568,16 +599,7 @@ font-size: 20px;
  color: var(--000);
  z-index: 99999;
 }
-@media screen and (max-width:1250px) {
-#Searchbar{
-  margin-left: 55px;
-}
-}
-@media screen and (max-width:1200px) {
-#Searchbar{
-  margin-left: -140px;
-}
-}
+
 #Search_Box-text:focus,
 #Search_Box-texts:focus {
 width: 300px;
@@ -595,7 +617,7 @@ box-shadow: 0 0 5pt 2pt var(--000);
 div.File_Upload{
 margin-bottom: 15px;
 }
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
 div.File_Upload{
   margin-bottom: 10px;
 }
@@ -751,9 +773,9 @@ button.Logout_Btn{
   border: none;
   outline: none;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  margin-top: -105px;
+  margin-top: -5px;
   font-family: "Poppins",sans-serif;
 }
 button.Logout_Btn:hover{
@@ -761,7 +783,7 @@ button.Logout_Btn:hover{
   transition: all 0.3s ease-in-out;
 }
 
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
   div.Head_Card{
     display: none;
   }
@@ -790,49 +812,6 @@ div.Log-OuT_DE{
   font-size: 21px !important;
 }
 
-div.Details_User{
-margin-top: 30px;
-animation: NameAMI 30s forwards 20s ;
-}
-div.Music_Explore{
-background-color: var(--F5F5F5);
- width: 100%;
- padding: 10px 20px;
- border-radius: 10px;
- box-shadow: 1px 3px 10px var(--box);
- padding-bottom: 30px;
- animation: NavLeftdealy 2s forwards 1s ease-in-out; 
- transition: all 0.3s ease-in-out; 
- opacity: 0;
-} 
-@media screen and (max-width:1065px) {
-div.Music_Explore{
-  width: 100%;
-}
-}
-@media screen and (max-width:980px) {
-div.Music_Explore{
-  width: 100%;
-}
-}
-@media screen and (max-width:940px){
-div.Music_Explore{
-  background-color: transparent;
-  width: auto;
-  box-shadow:none;
-  padding: 0px;
-}
-}
-@keyframes NavLeftdealy { 
- 0% { 
-   transform: translateX(-100%); 
-   opacity: 0; 
- } 
- 100% { 
-   transform: translateX(0%); 
-   opacity: 1; 
- } 
-}
 .Btn_Search{
   text-decoration: none;
   position: relative;
@@ -880,7 +859,7 @@ div.Down_Home_Profile-max_P{
 margin-top: 10px;
 margin-bottom: 10px;
 }
-@media screen and (max-width:940px) {
+@media screen and (max-width:1000px) {
 div.Details_User{
 display: none;
 }

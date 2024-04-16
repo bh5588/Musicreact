@@ -16,41 +16,45 @@ const Login = () => {
   const history = useHistory();
   const [login, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
  // const [user, setUser] = useState(null);
   
-  const handleLoginsub = (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    axios.post('/login', {
-      login: login,
-      password: password
-    })
-    .then(response => {
-      setTimeout(() => {
-        setIsLoading(false);
-        history.push('/About');
-      }, 2000);
-     // console.log('Response:', response);
-      // Check if response contains data
-      if (response && response.data) {
-        // Access data and perform actions
-      //  setUser(response.data);
-        sessionStorage.setItem('token', JSON.stringify(response.data.user.tokenkey));
-       // localStorage.setItem('user', JSON.stringify(response.data)); // Convert object to string before storing in localStorage
-        //console.log('User data:', response.data);
-      } else {
-        // Handle case where response data is missing
-        console.error('Response data is missing');
-      }
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error:', error);
-    });
-  
-  }
+ const handleLoginsub = (event) => {
+  event.preventDefault();
+  setIsLoading(true);
+  axios.post('/login', {
+    login: login,
+    password: password
+  })
+  .then(response => {
+    setTimeout(() => {
+      setIsLoading(false);
+      history.push('/About');
+    }, 2000);
+    // Check if response contains data
+    if (response && response.data) {
+      // Access data and perform actions
+      sessionStorage.setItem('token', JSON.stringify(response.data.user.tokenkey));
+    } else {
+      // Handle case where response data is missing
+      console.error('Response data is missing');
+    }
+  })
+  .catch(error => {
+    // Handle errors
+    console.error('Error:', error);
+    if (error.response && error.response.data && error.response.data.error) {
+      // Update error message state with the message from the server
+      setErrorMessage(error.response.data.error);
+    } else {
+      // If error response does not contain an error message, display a generic error message
+      setErrorMessage('An error occurred. Please try again later.');
+    }
+    setIsLoading(false); // Set loading state to false regardless of the error
+  });
+}
+
   
 
 
@@ -79,7 +83,7 @@ const Login = () => {
 
           <div className='Login_From'>
             <div className='Login_From_Create'>
-              {error && <div style={{ color: 'red', fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>{error}</div>}
+              {errorMessage && <div  className="error-message" style={{ color: 'red', fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>{errorMessage}</div>}
               <form className='Login_Page' id='loginForm' onSubmit={handleLoginsub} method='post' >
                 <h1 className='Name_Log'>
                   Log in To <span className='Music_Name_Ex'> Music Explore</span>

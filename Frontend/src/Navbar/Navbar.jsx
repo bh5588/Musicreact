@@ -79,41 +79,34 @@ const Navbar = (  ) => {
 
 
 
-  const handleLogout = () => {
-    axios.post('/logout')
-      .then(response => {
-        setIsLoggedIn(false);
-        setUser(null);
-         sessionStorage.removeItem('token');
-      })
-      .catch(error => console.error('Error logging out:', error));
-  };
+const handleLogout = () => {
+  axios.post('/logout')
+    .then(response => {
+      setIsLoggedIn(false);
+      setUser(null);
+      sessionStorage.removeItem('token');
+      history.push('/Home'); // Redirect to the home page
+    })
+    .catch(error => console.error('Error logging out:', error));
+};
 
   const [isVisible, setIsVisible] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
-    setIsProfileOpen(!isProfileOpen);
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isProfileOpen && !event.target.closest('.Head_Profile')) {
-        setIsProfileOpen(false);
+      if (!event.target.closest('.Head_Profile')) {
+       
       }
     };
 
-   // document.addEventListener('click', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
 
-  }, [isProfileOpen]);
+  }, []);
 
-  useEffect(() => {
-    const musicExplore = document.querySelector('nav.Music_Explore');
-    if (musicExplore) {
-      musicExplore.style.zIndex = isProfileOpen ? 9999 : ''; 
-    }
-  }, [isProfileOpen]);
 
   const truncateName = (name, maxLength) => {
     if (name.length <= maxLength) {
@@ -129,7 +122,134 @@ const Navbar = (  ) => {
 
   return (
     <>
-    <div children="Parent_Music">
+<div children="Parent_Music">
+   <div className='Head_Profile_User_M'>
+     <div className='MUsic_Header_Explore'>
+      <div className='Head_User_Music'>
+          <div className='Head_User_Details'>
+              <div className='User_Music'>
+                  <div className='Tittle_Music_Ex'>
+                    <h1 className='Music_tittle'>
+                        <Link className="Music_Home" to="/Home">Music Explore</Link>
+                     </h1>
+                  </div>
+                    <div className='Down_Home'>
+                       <Link  className="Home_name" to="/Home" >
+                        <i id="Fa_Home_B" className="fa fa-home" aria-hidden="true"></i> Home</Link>
+                    </div>
+                    <div className='Upload_Files_Music_Ex'>
+                         {isLoggedIn ?  (
+                       
+                            <>
+                            <div className='File_Upload'>
+                                <button className='BTN_Upload' onClick={handlemusicupload} > <i id="Fa-Upload" className="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                            </div>
+                            </>
+                            ):(
+
+                            <div className='File_Upload'>
+                                <button className='BTN_Upload' onClick={handleClick} > <i id="Fa-Upload" className="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
+                            </div>
+
+                          )}
+                    </div>
+                    <div className='Search_btn'>
+                      <div className='Search_All'>
+                          <Link to='/About' className='Btn_Search'> <i id="Info_Cricle" className="fa fa-info-circle" aria-hidden="true"></i> About</Link>
+                      </div>
+                    </div>
+              </div>
+          </div>
+         
+            <div className='Login_Music_Upload'>
+                {isLoggedIn &&  (<>
+                  <div className='Login_Upload_Files'>
+                        <div className='Down_Upload'>
+                            <Link className="Upload_Files" to="/uploadfiles">
+                              <i id="Fa_Home_B" className="fa fa-music" aria-hidden="true">
+                                </i> upload Files</Link>
+                          </div>
+                      </div>
+                </>)}
+          </div>
+        </div> 
+
+
+          <div className='Search_Music_Ex'>
+            <div className='Music_Disable_Search-1'>
+              <div className='Music_Search'>
+                    <form action="" className="search-bar" onSubmit={handleSearch} >
+                      <i id="Searchbar" className="fa fa-search" aria-hidden="true"></i>
+                      <input id="Search_Box-texts" type="search" name="search" pattern=".*\S.*" required  autoComplete="off"   value={searchQuery} onChange={handleInputChange} />
+                  </form>
+              </div>
+            </div>
+          </div>
+
+          <div className='Login_BTN_Music'>
+          {isLoggedIn ?  (
+              <>
+               
+              <div className='Head_Card'>
+                 <div className='Head_card_details'>
+                     <div onClick={toggleVisibility} className='Head_Profile'>
+                         <h1 className='User_Name_P'>
+                           { user ? user.name : 'User'}
+                          </h1> 
+                     </div>
+                     { isVisible && 
+                        <div className='Profle_Image_Content'>
+                            <div className='Profile_Img_Det'>
+                                <div className='User_Name_Id'>
+                                  <p className='User_Name_D' title={user? user.userid: 'user' } > Hi {user? user.userid: 'user' } </p>
+                                </div>
+                            </div>
+                            <div className='Down_Home_Profile'>
+                                <Link className="Home_name-profile" to="/Profile">
+                                  <i id="Fa_Home_profile" className="fa fa-user" aria-hidden="true">
+                                    </i> Profile</Link>
+                            </div>
+                            <div className='Profile_Img_Det' >
+                                <div className='Dark_mode'>
+                                  <div className='Dark_Mode_Switch_Name'>
+                                      <h3 className='Dark_Btn_color'> Change Mode : </h3>
+                                  </div>
+                                  <div className='Dark_Mode_Switch_S-m'>
+                                      <button onClick={toggleDarkMode}  className="BUTNS Button_BTN  Byu" title="Change To Dark Mode"></button>
+                                  </div>                                
+                                </div>
+                              </div>
+                            <div className='Profile_Img_De' >
+                                <div className='Logout_user'>
+                                  <button className='Logout_Btn' onClick={handleLogout}> <i id="Fa_Sign_Out_Profile" className="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+                                </div>
+                              </div>
+                       </div>
+                       }
+                      
+                 </div>
+              </div>
+                
+              </>
+               
+            ) :(
+           
+              <div className='Sign_up-Login'>
+                  <div className='Nav_Bar_sign'>
+                      <Link className="Sign_Login   SignUp" to="/Signup">Sign up</Link>
+                  </div>
+                  <div className='Nav_Bar_Log'>
+                       <Link className="Sign_Login  Login"  to="/Login">Login</Link>
+                  </div>
+
+                    <button onClick={toggleDarkMode} className="BUTNS Button_BTN" title="Change To Dark Mode"></button>
+              </div>
+            
+            )}
+          </div>
+
+    </div>
+  </div>
       <nav className='Music_Explore'>
         <div className='Music_Explore_logo-1'>
             <div className='Music_Explore_logo'>
@@ -137,60 +257,8 @@ const Navbar = (  ) => {
                 <h1 className='Music_tittle'>
                   <Link className="Music_Home" to="/Home">Music Explore</Link>
                 </h1>
-                <div className='Music_theme'>
-                {/* Home  Page Button */}
-                <div className='Down_Home'>
-                    <Link  className="Home_name" to="/Home" >
-                        <i id="Fa_Home_B" className="fa fa-home" aria-hidden="true"></i> Home</Link>
-                </div>
-                {/* Home Page Btn Here End */}
-              
-                {/* Start Upload Files Start Here */}
-    
-                {isLoggedIn ?  (
-
-                  <>
-                  <div className='File_Upload'>
-                      <button className='BTN_Upload' onClick={handlemusicupload} > <i id="Fa-Upload" className="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
-                  </div>
-                  </>
-                ):(
-
-                  <div className='File_Upload'>
-                  <button className='BTN_Upload' onClick={handleClick} > <i id="Fa-Upload" className="fa fa-upload" aria-hidden="true"></i>  Music Upload </button>
-                  </div>
-
-                )}
-                
-                  
-                {/* Start Upload Files End here */}
-                
-                
-                {/* Search Button */}
-                  
-                  <div className='Search_btn'>
-                    <div className='Search_All'>
-                        <Link to='/About' className='Btn_Search'> <i id="Info_Cricle" className="fa fa-info-circle" aria-hidden="true"></i> About</Link>
-                    </div>
-                  </div>
-
-                {/* Search Button End */}
-                </div>
               </div>
             </div>
-            {isLoggedIn ?  (<>
-              <div className='Details_User'>
-                  <div className='Music_Explore'>
-                    
-                    <div className='Down_Upload'>
-                      <Link className="Upload_Files" to="/uploadfiles">
-                        <i id="Fa_Home_B" className="fa fa-music" aria-hidden="true">
-                          </i> upload Files</Link>
-                    </div>
-                
-                  </div>
-              </div>
-            </>):""}
         </div>
          
          <div className='Music_Disable_Search-1'>
@@ -206,14 +274,6 @@ const Navbar = (  ) => {
         <div className='Music_Explore_menu'>
           <div className='Music_Menu_links'>
             
-          <div className='Disable_Search-2'>
-              <div className='Music_Search'>
-                  <form action="" className="search-bar" onSubmit={handleSearch} >
-                      <i id="Searchbar" className="fa fa-search" aria-hidden="true"></i>
-                      <input id="Search_Box-texts" type="search" name="search" pattern=".*\S.*" required  autoComplete="off"   value={searchQuery} onChange={handleInputChange} />
-                  </form>
-              </div>
-            </div>
 
             <label htmlFor="menuTrigger" className="nav_ico" onClick={toggleMenu}>
                 <i className={`fa ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
@@ -292,74 +352,27 @@ const Navbar = (  ) => {
 
                   </div>
             </div>
-            {isLoggedIn ?  (
-              <>
-               
-              <div className='Head_Card'>
-                 <div className='Head_card_details'>
-                     <div onClick={toggleVisibility} className='Head_Profile'>
-                         <h1 className='User_Name_P'>
-                           { user ? user.name : 'User'}
-                          </h1> 
-                     </div>
-                     { isVisible && 
-                        <div className='Profle_Image_Content'>
-                         <div className='Profile_Img_Det'>
-                            <div className='User_Name_Id'>
-                              <p className='User_Name_D' title={user? user.userid: 'user' } > Hi {user? user.userid: 'user' } </p>
-                            </div>
-                         </div>
-                         <div className='Down_Home_Profile'>
-                            <Link className="Home_name-profile" to="/Profile">
-                              <i id="Fa_Home_profile" className="fa fa-user" aria-hidden="true">
-                                </i> Profile</Link>
-                         </div>
-                         <div className='Profile_Img_Det' >
-                            <div className='Dark_mode'>
-                               <div className='Dark_Mode_Switch_Name'>
-                                  <h3 className='Dark_Btn_color'> Change Mode : </h3>
-                               </div>
-                               <div className='Dark_Mode_Switch_S-m'>
-                                  <button onClick={toggleDarkMode}  className="BUTNS Button_BTN  Byu" title="Change To Dark Mode"></button>
-                               </div>                                
-                            </div>
-                          </div>
-                         <div className='Profile_Img_De' >
-                            <div className='Logout_user'>
-                              <button className='Logout_Btn' onClick={handleLogout}> <i id="Fa_Sign_Out_Profile" className="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
-                            </div>
-                          </div>
-                       </div>
-                       }
-                      
-                 </div>
-              </div>
-
-
-
-                
-              </>
-               
-            ) :(
-           
-              <div className='Sign_up-Login'>
-                  <div className='Nav_Bar_sign'>
-                      <Link className="Sign_Login   SignUp" to="/Signup">Sign up</Link>
-                  </div>
-                  <div className='Nav_Bar_Log'>
-                       <Link className="Sign_Login  Login"  to="/Login">Login</Link>
-                  </div>
-
-                    <button onClick={toggleDarkMode} className="BUTNS Button_BTN" title="Change To Dark Mode"></button>
-              </div>
-            
-            )}
           </div>
         </div>
 
       </nav>
     </div>
-      {/* <img src='https://i.stack.imgur.com/jDGzD.png'/> */}
+   
+    {/* <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/>
+    <img src='https://i.stack.imgur.com/jDGzD.png'/> */}
+
     </>
   );
 };
